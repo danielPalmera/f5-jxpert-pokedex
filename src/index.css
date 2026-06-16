@@ -610,3 +610,31 @@ custom-progress::-ms-fill {
 /* -------------- */
 /* Dropdown - end */
 /* -------------- */
+
+.floating-tab {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  gap: 1px;
+}
+
+.floating-tab__btn {
+  border: none;
+  background: var(--color-dark);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Kanit", sans-serif;
+}
+
+.floating-tab__btn:hover {
+  background: var(--color-steel);
+}
