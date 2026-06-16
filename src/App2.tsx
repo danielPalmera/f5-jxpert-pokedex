@@ -45,7 +45,7 @@ const icns: any = {
   steel,
   water,
 };
-
+/*
 const regs = [
   "kanto",
   "johto",
@@ -57,6 +57,18 @@ const regs = [
   "galar",
   "paldea",
 ];
+*/
+const Regions = {
+  kanto: { start: 0, end: 151 },
+  johto: { start: 151, end: 100 },
+  hoenn: { start: 251, end: 135 },
+  sinnoh: { start: 386, end: 108 },
+  unova: { start: 494, end: 155 },
+  kalos: { start: 649, end: 72 },
+  alola: { start: 721, end: 88 },
+  galar: { start: 809, end: 96 },
+  paldea: { start: 905, end: 120 },
+};
 
 export const App2 = () => {
   const [ldr, setLdr] = useState<any>(false);
@@ -77,38 +89,8 @@ export const App2 = () => {
       setLdr(true);
       setFltr(true);
 
-      let regStart, regEnd;
-      if (reg === "kanto") {
-        regStart = 0;
-        regEnd = 151;
-      } else if (reg === "johto") {
-        regStart = 151;
-        regEnd = 100;
-      } else if (reg === "hoenn") {
-        regStart = 251;
-        regEnd = 135;
-      } else if (reg === "sinnoh") {
-        regStart = 386;
-        regEnd = 108;
-      } else if (reg === "unova") {
-        regStart = 494;
-        regEnd = 155;
-      } else if (reg === "kalos") {
-        regStart = 649;
-        regEnd = 72;
-      } else if (reg === "alola") {
-        regStart = 721;
-        regEnd = 88;
-      } else if (reg === "galar") {
-        regStart = 809;
-        regEnd = 96;
-      } else if (reg === "paldea") {
-        regStart = 905;
-        regEnd = 120;
-      } else {
-        regStart = 0;
-        regEnd = 151;
-      }
+      const { start: regStart, end: regEnd } = Regions[reg] ?? Regions.kanto;
+
       const { results }: any = await fetch(
         `https://pokeapi.co/api/v2/pokemon?offset=${regStart}&limit=${regEnd}`,
       ).then((res) => res.json());
@@ -298,7 +280,7 @@ export const App2 = () => {
               hidden={!showregs}
               className={`dropdown__list ${!showregs ? "hide" : ""}`}
             >
-              {regs.map((key) => (
+              {Object.keys(Regions).map((key) => (
                 <li
                   key={key}
                   role="radio"
