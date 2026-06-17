@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import { Regions } from "../../types/Regions";
 import { PokemonCard } from "../molecules/PokemonCard";
 import { Loading } from "../atoms/Loading";
-export const Search = () => {
-  const [showregs, setShowregs] = useState<any>(false);
-  const [showSort, setShowSort] = useState<any>(false);
+import { DropDownRegion } from "../atoms/DropDownRegion";
+import { OrderControls } from "../atoms/OrderControls";
 
-  const [reg, setreg] = useState<any>("kanto");
-  const [showRegions, isShowRegions] = useState<boolean>(false);
+export const Search = () => {
+  const [showregs, setShowregs] = useState<boolean>(false);
+  const [showSort, setShowSort] = useState<boolean>(false);
   const [loading, isLoading] = useState<boolean>(false);
   const [filtering, isFiltering] = useState<boolean>(false);
   const [result, setResult] = useState<any>([]);
   const [finalResult, setFinalResult] = useState<any>([]);
   const [busqueda, setBusqueda] = useState<string>("");
   const [region, setRegion] = useState<string>("kanto");
-  const [sorting, setSort] = useState<any>("default");
+  const [sorting, setSort] = useState<string>("default");
 
   useEffect(() => {
     /**
@@ -93,7 +93,7 @@ export const Search = () => {
           }),
         );
       }
-      if (sorting === "special-attack") {
+      if (sorting === "specialAttack") {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
             const aStat = a.stats.find(
@@ -106,7 +106,7 @@ export const Search = () => {
           }),
         );
       }
-      if (sorting === "special-defense") {
+      if (sorting === "specialDefense") {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
             const aStat = a.stats.find(
@@ -168,262 +168,38 @@ export const Search = () => {
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
         />
-        <div className="dropdown">
-          <button
-            role="combobox"
-            aria-haspopup="listbox"
-            aria-controls="reg-list"
-            aria-label="Select reg"
-            aria-expanded={showregs}
-            className={`dropdown__button ${showregs ? "active" : ""}`}
-            onClick={() =>
-              setShowregs((prev) => {
-                if (showSort) {
-                  setShowSort(false);
-                }
-                return !prev;
-              })
-            }
-          >
-            {region}
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5.33337 5.99999L8.00004 3.33333L10.6667 5.99999"
-                stroke="var(--color-neutral-600)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M10.6667 10L8.00004 12.6667L5.33337 10"
-                stroke="var(--color-neutral-600)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-          <ol
-            role="listbox"
-            id="reg-list"
-            hidden={!showregs}
-            className={`dropdown__list ${!showregs ? "hide" : ""}`}
-          >
-            {Object.keys(Regions).map((key) => (
-              <li
-                key={key}
-                role="radio"
-                aria-checked={region === key}
-                  tabIndex={0}
-                  className={region === key ? "active" : ""}
-                onClick={() => {
-                  setRegion(key);
-                  setShowregs(false);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    setRegion(key);
-                    setShowregs(false);
-                  }
-                }}
-              >
-                {key}
-              </li>
-            ))}
-          </ol>
-        </div>
 
-        <button
-          role="combobox"
-          aria-haspopup="listbox"
-          aria-controls="sort-list"
-          aria-label="Sort by"
-          aria-expanded={showSort}
-          className="sort__button"
-          onClick={() =>
+        <DropDownRegion
+          region={region}
+          showregs={showregs}
+          showSort={showSort}
+          onRegionChange={(key) => {
+            setRegion(key);
+            setShowregs(false);
+          }}
+          onToggle={() => {
+            setShowregs((prev) => {
+              if (showSort) setShowSort(false);
+              return !prev;
+            });
+          }}
+        />
+
+        <OrderControls
+          showSort={showSort}
+          sorting={sorting}
+          showregs={showregs}
+          onSortChange={(value) => {
+            setSort(value);
+            setShowSort(false);
+          }}
+          onToggle={() => {
             setShowSort((prev) => {
               if (showregs) setShowregs(false);
               return !prev;
-            })
-          }
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke={
-              showSort ? "var(--color-accent)" : "var(--color-neutral-700)"
-            }
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 6l9 0" />
-            <path d="M4 12l7 0" />
-            <path d="M4 18l7 0" />
-            <path d="M15 15l3 3l3 -3" />
-            <path d="M18 6l0 12" />
-          </svg>
-        </button>
-
-        {showSort && (
-          <article className="sort__wrapper">
-            <h3 className="sort__title">Sort by</h3>
-            <div className="sort__items" role="listbox" id="sort-list">
-              <span
-                role="radio"
-                aria-label="Default"
-                tabIndex={0}
-                className={`sort__pill ${sorting === "default" ? "active" : ""}`}
-                aria-checked={sorting === "default"}
-                onClick={() => {
-                  setSort("default");
-                  setShowSort(false);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    setSort("default");
-                    setShowSort(false);
-                  }
-                }}
-              >
-                {" "}
-                Default
-              </span>
-              <span
-                role="radio"
-                aria-label="Health points"
-                tabIndex={0}
-                className={`sort__pill ${sorting === "hp" ? "active" : ""}`}
-                aria-checked={sorting === "hp"}
-                onClick={() => {
-                  setSort("hp");
-                  setShowSort(false);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    setSort("hp");
-                    setShowSort(false);
-                  }
-                }}
-              >
-                {" "}
-                Hp
-              </span>
-              <span
-                role="radio"
-                aria-label="Attack"
-                tabIndex={0}
-                className={`sort__pill ${sorting === "attack" ? "active" : ""}`}
-                aria-checked={sorting === "attack"}
-                onClick={() => {
-                  setSort("attack");
-                  setShowSort(false);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    setSort("attack");
-                    setShowSort(false);
-                  }
-                }}
-              >
-                {" "}
-                At
-              </span>
-              <span
-                role="radio"
-                aria-label="Defense"
-                tabIndex={0}
-                className={`sort__pill ${sorting === "defense" ? "active" : ""}`}
-                aria-checked={sorting === "defense"}
-                onClick={() => {
-                  setSort("defense");
-                  setShowSort(false);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    setSort("defense");
-                    setShowSort(false);
-                  }
-                }}
-              >
-                Df
-              </span>
-              <span
-                role="radio"
-                aria-label="Special attack"
-                tabIndex={0}
-                className={`sort__pill ${
-                  sorting === "specialAttack" ? "active" : ""
-                }`}
-                aria-checked={sorting === "specialAttack"}
-                onClick={() => {
-                  setSort("specialAttack");
-                  setShowSort(false);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    setSort("specialAttack");
-                    setShowSort(false);
-                  }
-                }}
-              >
-                {" "}
-                SpA
-              </span>
-              <span
-                role="radio"
-                aria-label="Special defense"
-                tabIndex={0}
-                className={`sort__pill ${
-                  sorting === "specialDefense" ? "active" : ""
-                }`}
-                aria-checked={sorting === "specialDefense"}
-                onClick={() => {
-                  setSort("specialDefense");
-                  setShowSort(false);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    setSort("specialDefense");
-                    setShowSort(false);
-                  }
-                }}
-              >
-                SpD
-              </span>
-              <span
-                role="radio"
-                aria-label="Speed"
-                tabIndex={0}
-                className={`sort__pill ${sorting === "speed" ? "active" : ""}`}
-                aria-checked={sorting === "speed"}
-                onClick={() => {
-                  setSort("speed");
-                  setShowSort(false);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    setSort("speed");
-                    setShowSort(false);
-                  }
-                }}
-              >
-                {" "}
-                Spd
-              </span>
-            </div>
-          </article>
-        )}
+            });
+          }}
+        />
       </section>
       <section>
         {(loading || filtering) && <Loading />}

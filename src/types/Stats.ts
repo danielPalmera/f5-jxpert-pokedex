@@ -7,7 +7,7 @@ export const Stats = {
   speed: { label: "Speed", StatShortName: "Spd" },
 };
 
-export const SortFiltersOptions = {
+export const SortFiltersOptions: Record<string, SortFilterOption> = {
   default: { label: "", StatShortName: "" },
   hp: { label: "Health points", StatShortName: "Hp" },
   attack: { label: "Attack", StatShortName: "At" },
@@ -16,6 +16,11 @@ export const SortFiltersOptions = {
   specialDefense: { label: "Special defense", StatShortName: "SpD" },
   speed: { label: "Speed", StatShortName: "Spd" },
 };
+
+export interface SortFilterOption {
+  label: string;
+  StatShortName: string;
+}
 
 export interface pokemonStat {
   name: string;
