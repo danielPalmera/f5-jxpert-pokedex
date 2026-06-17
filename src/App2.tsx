@@ -97,16 +97,6 @@ const Regions = {
   paldea: { start: 905, end: 120 },
 };
 
-const SortFiltersOptions = {
-  default: { label: "", StatShortName: "" },
-  hp: { label: "Health points", StatShortName: "Hp" },
-  attack: { label: "Attack", StatShortName: "At" },
-  defense: { label: "Defense", StatShortName: "Df" },
-  specialAttack: { label: "Special attack", StatShortName: "SpA" },
-  specialDefense: { label: "Special defense", StatShortName: "SpD" },
-  speed: { label: "Speed", StatShortName: "Spd" },
-};
-
 export const App2 = () => {
   const [ldr, setLdr] = useState<any>(false);
   const [fltr, setFltr] = useState<any>(false);
@@ -132,9 +122,16 @@ export const App2 = () => {
         `https://pokeapi.co/api/v2/pokemon?offset=${regStart}&limit=${regEnd}`,
       ).then((res) => res.json());
       const result = await Promise.all(
-        results.map(
-          async ({ url }) => await fetch(url).then((res) => res.json()),
-        ),
+        results.map(async ({ url }) => {
+          const data = await fetch(url).then((res) => res.json());
+          return {
+            ...data,
+            stats: data.stats.map((s) => ({
+              name: s.stat.name,
+              base: String(s.base_stat),
+            })),
+          };
+        }),
       );
       setResult(result);
       setFinalResult(result);
@@ -165,27 +162,27 @@ export const App2 = () => {
       if (sorting === "hp") {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
-            const aStat = a.stats.find((stat) => stat.stat.name === "hp");
-            const bStat = b.stats.find((stat) => stat.stat.name === "hp");
-            return bStat.base_stat - aStat.base_stat;
+            const aStat = a.stats.find((stat) => stat.name === "hp");
+            const bStat = b.stats.find((stat) => stat.name === "hp");
+            return bStat.base - aStat.base;
           }),
         );
       }
       if (sorting === "attack") {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
-            const aStat = a.stats.find((stat) => stat.stat.name === "attack");
-            const bStat = b.stats.find((stat) => stat.stat.name === "attack");
-            return bStat.base_stat - aStat.base_stat;
+            const aStat = a.stats.find((stat) => stat.name === "attack");
+            const bStat = b.stats.find((stat) => stat.name === "attack");
+            return bStat.base - aStat.base;
           }),
         );
       }
       if (sorting === "defense") {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
-            const aStat = a.stats.find((stat) => stat.stat.name === "defense");
-            const bStat = b.stats.find((stat) => stat.stat.name === "defense");
-            return bStat.base_stat - aStat.base_stat;
+            const aStat = a.stats.find((stat) => stat.name === "defense");
+            const bStat = b.stats.find((stat) => stat.name === "defense");
+            return bStat.base - aStat.base;
           }),
         );
       }
@@ -193,12 +190,12 @@ export const App2 = () => {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
             const aStat = a.stats.find(
-              (stat) => stat.stat.name === "special-attack",
+              (stat) => stat.name === "special-attack",
             );
             const bStat = b.stats.find(
-              (stat) => stat.stat.name === "special-attack",
+              (stat) => stat.name === "special-attack",
             );
-            return bStat.base_stat - aStat.base_stat;
+            return bStat.base - aStat.base;
           }),
         );
       }
@@ -206,21 +203,21 @@ export const App2 = () => {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
             const aStat = a.stats.find(
-              (stat) => stat.stat.name === "special-defense",
+              (stat) => stat.name === "special-defense",
             );
             const bStat = b.stats.find(
-              (stat) => stat.stat.name === "special-defense",
+              (stat) => stat.name === "special-defense",
             );
-            return bStat.base_stat - aStat.base_stat;
+            return bStat.base - aStat.base;
           }),
         );
       }
       if (sorting === "speed") {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
-            const aStat = a.stats.find((stat) => stat.stat.name === "speed");
-            const bStat = b.stats.find((stat) => stat.stat.name === "speed");
-            return bStat.base_stat - aStat.base_stat;
+            const aStat = a.stats.find((stat) => stat.name === "speed");
+            const bStat = b.stats.find((stat) => stat.name === "speed");
+            return bStat.base - aStat.base;
           }),
         );
       }
@@ -591,10 +588,10 @@ export const App2 = () => {
                               <p className="stat__name" aria-hidden="true">
                                 Hp
                               </p>
-                              <p>{res.stats[0].base_stat}</p>
+                              <p>{res.stats[0].base}</p>
                             </div>
                             <progress
-                              value={res.stats[0].base_stat}
+                              value={res.stats[0].base}
                               max="255"
                             ></progress>
                           </li>
@@ -603,10 +600,10 @@ export const App2 = () => {
                               <p className="stat__name" aria-hidden="true">
                                 At
                               </p>
-                              <p>{res.stats[1].base_stat}</p>
+                              <p>{res.stats[1].base}</p>
                             </div>
                             <progress
-                              value={res.stats[1].base_stat}
+                              value={res.stats[1].base}
                               max="255"
                             ></progress>
                           </li>
@@ -615,10 +612,10 @@ export const App2 = () => {
                               <p className="stat__name" aria-hidden="true">
                                 Df
                               </p>
-                              <p>{res.stats[2].base_stat}</p>
+                              <p>{res.stats[2].base}</p>
                             </div>
                             <progress
-                              value={res.stats[2].base_stat}
+                              value={res.stats[2].base}
                               max="255"
                             ></progress>
                           </li>
@@ -630,10 +627,10 @@ export const App2 = () => {
                               <p className="stat__name" aria-hidden="true">
                                 SpA
                               </p>
-                              <p>{res.stats[3].base_stat}</p>
+                              <p>{res.stats[3].base}</p>
                             </div>
                             <progress
-                              value={res.stats[3].base_stat}
+                              value={res.stats[3].base}
                               max="255"
                             ></progress>
                           </li>
@@ -645,10 +642,10 @@ export const App2 = () => {
                               <p className="stat__name" aria-hidden="true">
                                 SpD
                               </p>
-                              <p>{res.stats[4].base_stat}</p>
+                              <p>{res.stats[4].base}</p>
                             </div>
                             <progress
-                              value={res.stats[4].base_stat}
+                              value={res.stats[4].base}
                               max="255"
                             ></progress>
                           </li>
@@ -657,10 +654,10 @@ export const App2 = () => {
                               <p className="stat__name" aria-hidden="true">
                                 Spd
                               </p>
-                              <p>{res.stats[5].base_stat}</p>
+                              <p>{res.stats[5].base}</p>
                             </div>
                             <progress
-                              value={res.stats[5].base_stat}
+                              value={res.stats[5].base}
                               max="255"
                             ></progress>
                           </li>
