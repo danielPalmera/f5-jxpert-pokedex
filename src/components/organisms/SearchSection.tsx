@@ -36,7 +36,7 @@ export const Search = () => {
             ...data,
             stats: data.stats.map((s) => ({
               name: s.stat.name,
-              base: String(s.base_stat),
+              base: Number(s.base_stat),
             })),
           };
         }),
