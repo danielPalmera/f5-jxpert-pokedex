@@ -4,9 +4,9 @@ import { TypesPokemon } from "../../types/Pokemons";
 export const CardTagTypeList = ({ res }: { res: any }) => {
   return (
     <div className="card__tag">
-      {res.types.map((type: any, index: number) => (
+      {res.map((type: any, index: number) => (
         <CardTagType
-          key={`pokemon-card-${res.id}-type-${index}`}
+          key={type.type.name}
           typeName={
             TypesPokemon.find((t) => t.name === type.type.name)?.iconImg || ""
           }

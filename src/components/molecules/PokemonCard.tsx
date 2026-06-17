@@ -1,34 +1,32 @@
-import { TypesPokemon } from "../../types/Pokemons";
 import { CardTagNumber } from "../atoms/CardTagNumber";
-import { CardTagType } from "../atoms/CardTagType";
 import { CardTagTypeList } from "./CardTagTypeList";
 import { CardProgressStat } from "../atoms/CardProgressStat";
-export const PokemonCard = ({
-  res,
-  customStyles,
-}: {
-  res: any;
-  customStyles: any;
-}) => {
+import { PokemonCardData, PokemonStat } from "../../types/PokemonCardData";
+
+export const PokemonCard = ({ data }: { data: PokemonCardData }) => {
+  const customStyles: any = {
+    "--color-type": `var(--color-${data.types[0].type.name}`,
+  };
+
   return (
-    <li key={`pokemon-card-${res.id}`}>
+    <li key={`pokemon-card-${data.id}`}>
       <article className="card" style={customStyles}>
         <header className="card__head">
-          <CardTagNumber id={res.id} />
-          <CardTagTypeList res={res} />
+          <CardTagNumber id={data.id} />
+          <CardTagTypeList res={data.types} />
         </header>
         <img
           className="card__avatar"
-          src={res.sprites.other["official-artwork"].front_default}
+          src={data.sprites.other["official-artwork"].front_default}
           loading="lazy"
-          alt={`${res.name} artwork`}
+          alt={`${data.name} artwork`}
         />
         <section className="card__content">
-          <h3 className="card__title">{res.name}</h3>
+          <h3 className="card__title">{data.name}</h3>
           <ul aria-description="Stats resume">
-            {res.stats.map((stat: any, index: number) => (
+            {data.stats.map((stat: PokemonStat, index: number) => (
               <CardProgressStat
-                key={`pokemon-card-${res.id}-stat-${index}`}
+                key={`pokemon-card-${data.id}-stat-${index}`}
                 stat={stat}
               />
             ))}
