@@ -14,6 +14,6 @@
     "noEmit": true,
     "noImplicitAny": false
   },
-  "include": ["src"],
+  "include": ["src", "src/components/organisms/.tsx"],
   "exclude": ["node_modules", "dist"]
 }

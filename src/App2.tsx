@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Header } from "./components/atoms/Header";
 import { Footer } from "./components/atoms/Footer";
-
+import { Loading } from "./components/atoms/Loading";
+import { PokemonCard } from "./components/molecules/PokemonCard";
+import { Search } from "./components/organisms/SearchSection";
+/*
 import bug from "./assets/bug.svg";
 import dark from "./assets/dark.svg";
 import dragon from "./assets/dragon.svg";
@@ -21,10 +24,33 @@ import rock from "./assets/rock.svg";
 import steel from "./assets/steel.svg";
 import water from "./assets/water.svg";
 import pokeball from "./assets/pokeball.svg";
-
+*/
 /**
  *  Iconos de los tipos de Pokémon
  */
+/*
+const TypesPokemon = {
+  bug: { icon: "bug.svg" },
+  dark: { icon: "dark.svg" },
+  dragon: { icon: "dragon.svg" },
+  electric: { icon: "electric.svg" },
+  fairy: { icon: "fairy.svg" },
+  fighting: { icon: "fighting.svg" },
+  fire: { icon: "fire.svg" },
+  flying: { icon: "flying.svg" },
+  ghost: { icon: "ghost.svg" },
+  grass: { icon: "grass.svg" },
+  ground: { icon: "ground.svg" },
+  ice: { icon: "ice.svg" },
+  normal: { icon: "normal.svg" },
+  poison: { icon: "poison.svg" },
+  psychic: { icon: "psychic.svg" },
+  rock: { icon: "rock.svg" },
+  steel: { icon: "steel.svg" },
+  water: { icon: "water.svg" },
+};
+*/
+/*
 const icns: any = {
   bug,
   dark,
@@ -45,6 +71,7 @@ const icns: any = {
   steel,
   water,
 };
+*/
 /*
 const regs = [
   "kanto",
@@ -68,6 +95,16 @@ const Regions = {
   alola: { start: 721, end: 88 },
   galar: { start: 809, end: 96 },
   paldea: { start: 905, end: 120 },
+};
+
+const SortFiltersOptions = {
+  default: { label: "", StatShortName: "" },
+  hp: { label: "Health points", StatShortName: "Hp" },
+  attack: { label: "Attack", StatShortName: "At" },
+  defense: { label: "Defense", StatShortName: "Df" },
+  specialAttack: { label: "Special attack", StatShortName: "SpA" },
+  specialDefense: { label: "Special defense", StatShortName: "SpD" },
+  speed: { label: "Speed", StatShortName: "Spd" },
 };
 
 export const App2 = () => {
@@ -203,6 +240,7 @@ export const App2 = () => {
 
       {/* Searcher */}
       <main className="container">
+        {/*<Search />*/}
         <section className="search">
           <svg
             width="24"
@@ -232,7 +270,6 @@ export const App2 = () => {
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
           />
-          {/* Shows regions */}
           <div className="dropdown">
             <button
               role="combobox"
@@ -340,7 +377,6 @@ export const App2 = () => {
             </svg>
           </button>
 
-          {/* Muestra el menú de ordenación */}
           {showSort && (
             <article className="sort__wrapper">
               <h3 className="sort__title">Sort by</h3>
@@ -499,25 +535,9 @@ export const App2 = () => {
             </article>
           )}
         </section>
-
         {/* Muestra cartas cargando */}
         <section>
-          {(ldr || fltr) && (
-            <div className="grid" aria-hidden="true">
-              {Array.from({ length: 6 }, (_, index) => {
-                return (
-                  <article
-                    key={`placeholder-card-${index}`}
-                    className="card card-placeholder"
-                  >
-                    <svg viewBox="0 0 24 24">
-                      <path d="M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M12,4C7.92,4 4.55,7.05 4.06,11H8.13C8.57,9.27 10.14,8 12,8C13.86,8 15.43,9.27 15.87,11H19.94C19.45,7.05 16.08,4 12,4M12,20C16.08,20 19.45,16.95 19.94,13H15.87C15.43,14.73 13.86,16 12,16C10.14,16 8.57,14.73 8.13,13H4.06C4.55,16.95 7.92,20 12,20M12,10C10.9,10 10,10.9 10,12C10,13.1 10.9,14 12,14C13.1,14 14,13.1 14,12C14,10.9 13.1,10 12,10Z" />
-                    </svg>
-                  </article>
-                );
-              })}
-            </div>
-          )}
+          {(ldr || fltr) && <Loading />}
           {/* Prints cards */}
           {!fltr && !ldr && finalResult.length > 0 && (
             <ul className="grid">
@@ -525,7 +545,14 @@ export const App2 = () => {
                 const customStyles: any = {
                   "--color-type": `var(--color-${res.types[0].type.name}`,
                 };
-
+                return (
+                  <PokemonCard
+                    key={`pokemon-card-${res.id}`}
+                    res={res}
+                    customStyles={customStyles}
+                  />
+                );
+                /*
                 return (
                   <li key={`pokemon-card-${res.id}`}>
                     <article className="card" style={customStyles}>
@@ -642,6 +669,7 @@ export const App2 = () => {
                     </article>
                   </li>
                 );
+                */
               })}
             </ul>
           )}
