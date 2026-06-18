@@ -10,7 +10,11 @@ export const PokemonCard = ({ data }: { data: PokemonCardData }) => {
 
   return (
     <li key={`pokemon-card-${data.id}`}>
-      <article className="card" style={customStyles}>
+      <article
+        className={`card ${data.types[0].type.name}`}
+        style={customStyles}
+      >
+        <div className="effect-container"></div>
         <header className="card__head">
           <CardTagNumber id={data.id} />
           <CardTagTypeList res={data.types} />

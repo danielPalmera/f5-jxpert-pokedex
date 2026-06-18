@@ -6,6 +6,7 @@ import { PokemonCard } from "../molecules/PokemonCard";
 import { Loading } from "../atoms/Loading";
 import { DropDownRegion } from "../atoms/DropDownRegion";
 import { OrderControls } from "../atoms/OrderControls";
+import errorImg from "../../assets/images/pokedex.png";
 
 export const Search = () => {
   const [showregs, setShowregs] = useState<boolean>(false);
@@ -13,7 +14,7 @@ export const Search = () => {
   const [busqueda, setBusqueda] = useState<string>("");
   const [region, setRegion] = useState<string>("kanto");
   const [sorting, setSort] = useState<string>("default");
-  const { result, loading } = usePokemonData(region);
+  const { result, loading, error } = usePokemonData(region);
   const filtered = usePokemonFilter(result, busqueda);
   const sorted = usePokemonSort(filtered, sorting);
 
@@ -82,6 +83,11 @@ export const Search = () => {
         />
       </section>
       <section>
+        {error && (
+          <p className="error">
+            <img src={errorImg} alt="Error" width={500} />
+          </p>
+        )}
         {loading && <Loading />}
         {!loading && sorted.length > 0 && (
           <ul className="grid">
@@ -91,7 +97,7 @@ export const Search = () => {
           </ul>
         )}
       </section>
-      {!loading && sorted.length === 0 && (
+      {!loading && sorted.length === 0 && !error && (
         <p className="noresults">No results for "{busqueda}"</p>
       )}
     </>
