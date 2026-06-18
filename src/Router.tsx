@@ -10,11 +10,11 @@ import { App2 } from "./App2";
 const routes = {
   home: {
     path: "/",
-    element: App,
-  },
-  app2: {
-    path: "/app2",
     element: App2,
+  },
+  old: {
+    path: "/old",
+    element: App,
   },
 };
 
@@ -24,10 +24,10 @@ const Layout = () => {
   return (
     <>
       <aside className="floating-tab">
-        <button className="floating-tab__btn" onClick={() => navigate("/")}>
+        <button className="floating-tab__btn" onClick={() => navigate("/old")}>
           O
         </button>
-        <button className="floating-tab__btn" onClick={() => navigate("/app2")}>
+        <button className="floating-tab__btn" onClick={() => navigate("/")}>
           N
         </button>
       </aside>
