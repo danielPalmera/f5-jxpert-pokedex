@@ -1,4 +1,4 @@
-import { SortFiltersOptions } from "../../types/Stats";
+import { SortFiltersOptions } from "../../constants/Stats";
 interface Props {
   showSort: boolean;
   sorting: string;

@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
-import { Regions } from "../../types/Regions";
+import { useState } from "react";
+import { usePokemonData } from "../../hooks/usePokemonData";
+import { usePokemonFilter } from "../../hooks/usePokemonFilter";
+import { usePokemonSort } from "../../hooks/usePokemonSort";
 import { PokemonCard } from "../molecules/PokemonCard";
 import { Loading } from "../atoms/Loading";
 import { DropDownRegion } from "../atoms/DropDownRegion";
@@ -8,135 +10,13 @@ import { OrderControls } from "../atoms/OrderControls";
 export const Search = () => {
   const [showregs, setShowregs] = useState<boolean>(false);
   const [showSort, setShowSort] = useState<boolean>(false);
-  const [loading, isLoading] = useState<boolean>(false);
-  const [filtering, isFiltering] = useState<boolean>(false);
-  const [result, setResult] = useState<any>([]);
-  const [finalResult, setFinalResult] = useState<any>([]);
   const [busqueda, setBusqueda] = useState<string>("");
   const [region, setRegion] = useState<string>("kanto");
   const [sorting, setSort] = useState<string>("default");
+  const { result, loading } = usePokemonData(region);
+  const filtered = usePokemonFilter(result, busqueda);
+  const sorted = usePokemonSort(filtered, sorting);
 
-  useEffect(() => {
-    /**
-     *  Carga de datos de Pokémons y gestión de estado de cargando.
-     */
-    const getData = async () => {
-      isLoading(true);
-      isFiltering(true);
-
-      const { start: regStart, end: regEnd } = Regions[region] ?? Regions.kanto;
-
-      const { results }: any = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?offset=${regStart}&limit=${regEnd}`,
-      ).then((res) => res.json());
-      const result = await Promise.all(
-        results.map(async ({ url }) => {
-          const data = await fetch(url).then((res) => res.json());
-          return {
-            ...data,
-            stats: data.stats.map((s) => ({
-              name: s.stat.name,
-              base: Number(s.base_stat),
-            })),
-          };
-        }),
-      );
-      setResult(result);
-      isLoading(false);
-    };
-    getData();
-  }, [region]);
-  /**
-   * Filters results based on input query term.
-   */
-  useEffect(() => {
-    setFinalResult(
-      result.filter(
-        (res) =>
-          res.name.includes(busqueda.toLowerCase()) ||
-          !!res.types.find((type) =>
-            type.type.name.startsWith(busqueda.toLowerCase()),
-          ),
-      ),
-    );
-    isFiltering(false);
-  }, [result[0]?.id, busqueda]);
-  /**
-   * Sorts results based on selected sorting criteria.
-   */
-  useEffect(() => {
-    if (sorting !== "default") {
-      if (sorting === "hp") {
-        setFinalResult((prev) =>
-          [...prev].sort((a, b) => {
-            const aStat = a.stats.find((stat) => stat.name === "hp");
-            const bStat = b.stats.find((stat) => stat.name === "hp");
-            return bStat.base - aStat.base;
-          }),
-        );
-      }
-      if (sorting === "attack") {
-        setFinalResult((prev) =>
-          [...prev].sort((a, b) => {
-            const aStat = a.stats.find((stat) => stat.name === "attack");
-            const bStat = b.stats.find((stat) => stat.name === "attack");
-            return bStat.base - aStat.base;
-          }),
-        );
-      }
-      if (sorting === "defense") {
-        setFinalResult((prev) =>
-          [...prev].sort((a, b) => {
-            const aStat = a.stats.find((stat) => stat.name === "defense");
-            const bStat = b.stats.find((stat) => stat.name === "defense");
-            return bStat.base - aStat.base;
-          }),
-        );
-      }
-      if (sorting === "specialAttack") {
-        setFinalResult((prev) =>
-          [...prev].sort((a, b) => {
-            const aStat = a.stats.find(
-              (stat) => stat.name === "special-attack",
-            );
-            const bStat = b.stats.find(
-              (stat) => stat.name === "special-attack",
-            );
-            return bStat.base - aStat.base;
-          }),
-        );
-      }
-      if (sorting === "specialDefense") {
-        setFinalResult((prev) =>
-          [...prev].sort((a, b) => {
-            const aStat = a.stats.find(
-              (stat) => stat.name === "special-defense",
-            );
-            const bStat = b.stats.find(
-              (stat) => stat.name === "special-defense",
-            );
-            return bStat.base - aStat.base;
-          }),
-        );
-      }
-      if (sorting === "speed") {
-        setFinalResult((prev) =>
-          [...prev].sort((a, b) => {
-            const aStat = a.stats.find((stat) => stat.name === "speed");
-            const bStat = b.stats.find((stat) => stat.name === "speed");
-            return bStat.base - aStat.base;
-          }),
-        );
-      }
-    }
-    if (sorting === "default") {
-      setFinalResult((prev) =>
-        [...prev].sort((a, b) => {
-          return a.id - b.id;
-        }),
-      );
-    }
-  }, [finalResult[0]?.id, sorting]);
   return (
     <>
       <section className="search">
@@ -202,17 +82,16 @@ export const Search = () => {
         />
       </section>
       <section>
-        {(loading || filtering) && <Loading />}
-        {/* Prints cards */}
-        {!filtering && !loading && finalResult.length > 0 && (
+        {loading && <Loading />}
+        {!loading && sorted.length > 0 && (
           <ul className="grid">
-            {finalResult.map((res) => {
+            {sorted.map((res) => {
               return <PokemonCard key={`pokemon-card-${res.id}`} data={res} />;
             })}
           </ul>
         )}
       </section>
-      {!loading && finalResult.length === 0 && (
+      {!loading && sorted.length === 0 && (
         <p className="noresults">No results for "{busqueda}"</p>
       )}
     </>

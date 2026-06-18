@@ -1,3 +1,5 @@
+import spriteUrl from "../../assets/images/pokemon-types.svg";
+
 export const CardTagType = ({
   typeName,
   isPrimary,
@@ -6,10 +8,14 @@ export const CardTagType = ({
   isPrimary?: boolean;
 }) => {
   return (
-    <img
-      src={typeName}
+    <svg
       className="card__type"
-      alt={`${typeName} type ${isPrimary ? "primary" : "secondary"}`}
-    />
+      width={24}
+      height={24}
+      role="img"
+      aria-label={`${typeName} type ${isPrimary ? "primary" : "secondary"}`}
+    >
+      <use href={`${spriteUrl}#${typeName}`} />
+    </svg>
   );
 };

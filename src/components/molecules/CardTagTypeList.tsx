@@ -1,5 +1,4 @@
 import { CardTagType } from "../atoms/CardTagType";
-import { TypesPokemon } from "../../constants/Pokemons";
 
 export const CardTagTypeList = ({ res }: { res: any }) => {
   return (
@@ -7,9 +6,7 @@ export const CardTagTypeList = ({ res }: { res: any }) => {
       {res.map((type: any, index: number) => (
         <CardTagType
           key={type.type.name}
-          typeName={
-            TypesPokemon.find((t) => t.name === type.type.name)?.iconImg || ""
-          }
+          typeName={type.type.name}
           isPrimary={index === 0}
         />
       ))}

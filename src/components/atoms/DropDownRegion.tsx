@@ -1,4 +1,4 @@
-import { Regions } from "../../types/Regions";
+import { Regions } from "../../constants/Regions";
 
 interface Props {
   region: string;

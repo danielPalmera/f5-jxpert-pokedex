@@ -1,4 +1,9 @@
-import { createBrowserRouter, Outlet, RouterProvider, useNavigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+  useNavigate,
+} from "react-router-dom";
 import { App } from "./App";
 import { App2 } from "./App2";
 
@@ -19,8 +24,12 @@ const Layout = () => {
   return (
     <>
       <aside className="floating-tab">
-        <button className="floating-tab__btn" onClick={() => navigate("/")}>O</button>
-        <button className="floating-tab__btn" onClick={() => navigate("/app2")}>N</button>
+        <button className="floating-tab__btn" onClick={() => navigate("/")}>
+          O
+        </button>
+        <button className="floating-tab__btn" onClick={() => navigate("/app2")}>
+          N
+        </button>
       </aside>
       <Outlet />
     </>
