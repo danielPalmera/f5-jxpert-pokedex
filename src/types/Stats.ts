@@ -8,7 +8,7 @@ export const Stats = {
 };
 
 export const SortFiltersOptions: Record<string, SortFilterOption> = {
-  default: { label: "", StatShortName: "" },
+  default: { label: "", StatShortName: "Default" },
   hp: { label: "Health points", StatShortName: "Hp" },
   attack: { label: "Attack", StatShortName: "At" },
   defense: { label: "Defense", StatShortName: "Df" },

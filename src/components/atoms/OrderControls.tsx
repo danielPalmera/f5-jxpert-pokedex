@@ -62,7 +62,7 @@ export const OrderControls = ({
                   if (e.key === "Enter") onSortChange(key);
                 }}
               >
-                {opt.StatShortName === "" ? "Default" : opt.StatShortName}
+                {opt.StatShortName}
               </span>
             ))}
           </div>
