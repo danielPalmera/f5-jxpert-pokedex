@@ -1,5 +1,5 @@
 import { CardTagType } from "../atoms/CardTagType";
-import { TypesPokemon } from "../../types/Pokemons";
+import { TypesPokemon } from "../../constants/Pokemons";
 
 export const CardTagTypeList = ({ res }: { res: any }) => {
   return (
