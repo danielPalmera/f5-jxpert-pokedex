@@ -36,11 +36,21 @@ body.party-mode .layout {
 }
 
 @keyframes party-bg {
-  0% { background: #ffebee; }
-  25% { background: #fff3e0; }
-  50% { background: #e8f5e9; }
-  75% { background: #e3f2fd; }
-  100% { background: #ffebee; }
+  0% {
+    background: #ffebee;
+  }
+  25% {
+    background: #fff3e0;
+  }
+  50% {
+    background: #e8f5e9;
+  }
+  75% {
+    background: #e3f2fd;
+  }
+  100% {
+    background: #ffebee;
+  }
 }
 
 body.party-mode .card {
@@ -49,8 +59,13 @@ body.party-mode .card {
 }
 
 @keyframes party-card {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-8px) rotate(2deg); }
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
 }
 
 body.party-mode .card__avatar {
@@ -58,9 +73,15 @@ body.party-mode .card__avatar {
 }
 
 @keyframes party-spin {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(5deg) scale(1.05); }
-  100% { transform: rotate(0deg) scale(1); }
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(5deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
 }
 
 body.party-mode .header__title {
@@ -77,8 +98,12 @@ body.party-mode .floating-tab__btn--party {
 }
 
 @keyframes party-glow {
-  from { filter: brightness(1); }
-  to { filter: brightness(1.4); }
+  from {
+    filter: brightness(1);
+  }
+  to {
+    filter: brightness(1.4);
+  }
 }
 
 body.party-mode .search input {
@@ -91,11 +116,25 @@ body.party-mode .stat__bar {
 }
 
 @keyframes stat-rainbow {
-  0% { background: red; }
-  16% { background: orange; }
-  33% { background: yellow; }
-  50% { background: green; }
-  66% { background: blue; }
-  83% { background: indigo; }
-  100% { background: violet; }
+  0% {
+    background: red;
+  }
+  16% {
+    background: orange;
+  }
+  33% {
+    background: yellow;
+  }
+  50% {
+    background: green;
+  }
+  66% {
+    background: blue;
+  }
+  83% {
+    background: indigo;
+  }
+  100% {
+    background: violet;
+  }
 }

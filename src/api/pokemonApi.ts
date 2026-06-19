@@ -1,16 +1,13 @@
-import { Regions } from "../constants/Regions";
-import type { PokemonCardData } from "../types/PokemonCardData";
-import type { ApiPokemonDetail, ApiPokemonListResponse } from "./types";
-import type { pokemonStat } from "../types/Stats";
+import { Regions } from '../constants/Regions';
+import type { PokemonCardData } from '../types/PokemonCardData';
+import type { pokemonStat } from '../types/Stats';
+import type { ApiPokemonDetail, ApiPokemonListResponse } from './types';
 
-const POKEAPI_BASE = "https://pokeapi.co/api/v2";
+const POKEAPI_BASE = 'https://pokeapi.co/api/v2';
 
-async function fetchList(
-  offset: number,
-  limit: number,
-): Promise<PokemonCardData[]> {
+async function fetchList(offset: number, limit: number): Promise<PokemonCardData[]> {
   const { results }: ApiPokemonListResponse = await fetch(
-    `${POKEAPI_BASE}/pokemon?offset=${offset}&limit=${limit}`,
+    `${POKEAPI_BASE}/pokemon?offset=${offset}&limit=${limit}`
   ).then((res) => res.json());
 
   return Promise.all(results.map(({ url }) => fetchDetail(url)));
@@ -28,7 +25,7 @@ async function fetchDetail(url: string): Promise<PokemonCardData> {
       (s): pokemonStat => ({
         name: s.stat.name,
         base: Number(s.base_stat),
-      }),
+      })
     ),
   };
 }

@@ -27,7 +27,7 @@ interface ApiType {
 
 interface ApiSprite {
   other: {
-    "official-artwork": {
+    'official-artwork': {
       front_default: string;
     };
   };

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap');
 
 :root {
   line-height: 1.5;
@@ -78,7 +78,7 @@
 *:before,
 *:after {
   box-sizing: border-box;
-  font-family: "Kanit", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Kanit', system-ui, Avenir, Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -151,11 +151,7 @@ button {
 
   padding: var(--spacing-m);
 
-  background-color: color-mix(
-    in oklab,
-    var(--color-neutral-50),
-    transparent 8%
-  );
+  background-color: color-mix(in oklab, var(--color-neutral-50), transparent 8%);
   backdrop-filter: blur(15px);
   box-shadow: var(--shadow-m);
 }
@@ -224,7 +220,7 @@ button {
   }
 }
 
-.search:has(input[type="text"]:focus) {
+.search:has(input[type='text']:focus) {
   border-color: var(--color-accent);
 }
 
@@ -241,11 +237,7 @@ button {
 
   padding: var(--spacing-s) var(--spacing-m);
 
-  background-color: color-mix(
-    in oklab,
-    var(--color-neutral-100),
-    transparent 10%
-  );
+  background-color: color-mix(in oklab, var(--color-neutral-100), transparent 10%);
   backdrop-filter: blur(15px);
   border-radius: var(--radius-s);
   box-shadow: var(--shadow-s);
@@ -335,7 +327,7 @@ button {
 }
 
 .card:before {
-  content: "";
+  content: '';
 
   position: absolute;
   top: 0;
@@ -408,21 +400,13 @@ progress {
 
   height: var(--spacing-2xs);
 
-  background-color: color-mix(
-    in oklab,
-    var(--color-neutral-900),
-    transparent 80%
-  );
+  background-color: color-mix(in oklab, var(--color-neutral-900), transparent 80%);
 
   border-radius: var(--spacing-2xs);
 }
 /* For webkit browsers */
 progress::-webkit-progress-bar {
-  background-color: color-mix(
-    in oklab,
-    var(--color-neutral-900),
-    transparent 80%
-  );
+  background-color: color-mix(in oklab, var(--color-neutral-900), transparent 80%);
   border-radius: var(--radius-2xs);
 }
 progress::-webkit-progress-value {
@@ -451,9 +435,7 @@ custom-progress::-ms-fill {
 
   width: var(--card-image);
   aspect-ratio: 1 / 1;
-  filter: drop-shadow(
-    0px 12px 10px rgba(0, 0, 0, 0.6)
-  ); /* Sombra marcada abajo */
+  filter: drop-shadow(0px 12px 10px rgba(0, 0, 0, 0.6)); /* Sombra marcada abajo */
   transition: transform 0.3s ease;
 }
 
@@ -469,11 +451,7 @@ custom-progress::-ms-fill {
 
   margin-top: calc(var(--spacing-4xl) * -1);
 
-  background-color: color-mix(
-    in oklab,
-    var(--color-neutral-900),
-    transparent 60%
-  );
+  background-color: color-mix(in oklab, var(--color-neutral-900), transparent 60%);
 
   border-radius: var(--radius-s);
 
@@ -548,11 +526,7 @@ custom-progress::-ms-fill {
 
   padding: var(--spacing-s);
 
-  background-color: color-mix(
-    in oklab,
-    var(--color-neutral-100),
-    transparent 10%
-  );
+  background-color: color-mix(in oklab, var(--color-neutral-100), transparent 10%);
   color: var(--color-neutral-0);
   border-radius: var(--radius-s);
   box-shadow: var(--shadow-s);
@@ -571,8 +545,7 @@ custom-progress::-ms-fill {
     }
 
     &:not(:last-child) {
-      border-bottom: 1px solid
-        color-mix(in oklab, var(--color-neutral-400), transparent 80%);
+      border-bottom: 1px solid color-mix(in oklab, var(--color-neutral-400), transparent 80%);
     }
   }
 }
@@ -641,7 +614,7 @@ custom-progress::-ms-fill {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Kanit", sans-serif;
+  font-family: 'Kanit', sans-serif;
 }
 
 .floating-tab__btn:hover {

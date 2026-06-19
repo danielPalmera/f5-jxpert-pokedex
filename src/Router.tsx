@@ -1,19 +1,15 @@
-import {
-  createBrowserRouter,
-  Outlet,
-  RouterProvider,
-  useNavigate,
-} from "react-router-dom";
-import { App } from "./App";
-import { App2 } from "./App2";
+import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
+
+import { App } from './App';
+import { App2 } from './App2';
 
 const routes = {
   home: {
-    path: "/",
+    path: '/',
     element: App2,
   },
   old: {
-    path: "/old",
+    path: '/old',
     element: App,
   },
 };
@@ -24,10 +20,10 @@ const Layout = () => {
   return (
     <>
       <aside className="floating-tab">
-        <button className="floating-tab__btn" onClick={() => navigate("/old")}>
+        <button className="floating-tab__btn" onClick={() => navigate('/old')}>
           O
         </button>
-        <button className="floating-tab__btn" onClick={() => navigate("/")}>
+        <button className="floating-tab__btn" onClick={() => navigate('/')}>
           N
         </button>
       </aside>
@@ -44,7 +40,7 @@ const router = createBrowserRouter([
       element: <Element />,
     })),
   },
-  { path: "*", element: <div className="notfound">Page not found</div> },
+  { path: '*', element: <div className="notfound">Page not found</div> },
 ]);
 
 export const Router = () => {

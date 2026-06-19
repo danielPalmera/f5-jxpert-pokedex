@@ -1,8 +1,9 @@
-import { pokemonStat, SortFilterOption } from "../../types/Stats";
-import { Stats } from "../../constants/Stats";
+import { Stats } from '../../constants/Stats';
+import { SortFilterOption, pokemonStat } from '../../types/Stats';
+
 export const CardProgressStat = ({ stat }: { stat: pokemonStat }) => {
   const statInfo = (Object.values(Stats) as SortFilterOption[]).find(
-    (s) => s.apiStatName === stat.name,
+    (s) => s.apiStatName === stat.name
   );
   return (
     <li className="card__stat" aria-label="Health points">

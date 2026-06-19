@@ -1,19 +1,16 @@
-import { CardTagNumber } from "../atoms/CardTagNumber";
-import { CardTagTypeList } from "./CardTagTypeList";
-import { CardProgressStat } from "../atoms/CardProgressStat";
-import { PokemonCardData, PokemonStat } from "../../types/PokemonCardData";
+import { PokemonCardData, PokemonStat } from '../../types/PokemonCardData';
+import { CardProgressStat } from '../atoms/CardProgressStat';
+import { CardTagNumber } from '../atoms/CardTagNumber';
+import { CardTagTypeList } from './CardTagTypeList';
 
 export const PokemonCard = ({ data }: { data: PokemonCardData }) => {
   const customStyles: any = {
-    "--color-type": `var(--color-${data.types[0].type.name}`,
+    '--color-type': `var(--color-${data.types[0].type.name}`,
   };
 
   return (
     <li key={`pokemon-card-${data.id}`}>
-      <article
-        className={`card ${data.types[0].type.name}`}
-        style={customStyles}
-      >
+      <article className={`card ${data.types[0].type.name}`} style={customStyles}>
         <div className="effect-container"></div>
         <header className="card__head">
           <CardTagNumber id={data.id} />
@@ -21,7 +18,7 @@ export const PokemonCard = ({ data }: { data: PokemonCardData }) => {
         </header>
         <img
           className="card__avatar"
-          src={data.sprites.other["official-artwork"].front_default}
+          src={data.sprites.other['official-artwork'].front_default}
           loading="lazy"
           alt={`${data.name} artwork`}
         />
@@ -29,10 +26,7 @@ export const PokemonCard = ({ data }: { data: PokemonCardData }) => {
           <h3 className="card__title">{data.name}</h3>
           <ul aria-description="Stats resume">
             {data.stats.map((stat: PokemonStat, index: number) => (
-              <CardProgressStat
-                key={`pokemon-card-${data.id}-stat-${index}`}
-                stat={stat}
-              />
+              <CardProgressStat key={`pokemon-card-${data.id}-stat-${index}`} stat={stat} />
             ))}
           </ul>
         </section>

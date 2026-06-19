@@ -1,23 +1,24 @@
-import { useEffect, useState } from "react";
-import bug from "./assets/images/bug.svg";
-import dark from "./assets/images/dark.svg";
-import dragon from "./assets/images/dragon.svg";
-import electric from "./assets/images/electric.svg";
-import fairy from "./assets/images/fairy.svg";
-import fighting from "./assets/images/fighting.svg";
-import fire from "./assets/images/fire.svg";
-import flying from "./assets/images/flying.svg";
-import ghost from "./assets/images/ghost.svg";
-import grass from "./assets/images/grass.svg";
-import ground from "./assets/images/ground.svg";
-import ice from "./assets/images/ice.svg";
-import normal from "./assets/images/normal.svg";
-import poison from "./assets/images/poison.svg";
-import psychic from "./assets/images/psychic.svg";
-import rock from "./assets/images/rock.svg";
-import steel from "./assets/images/steel.svg";
-import water from "./assets/images/water.svg";
-import pokeball from "./assets/images/pokeball.svg";
+import { useEffect, useState } from 'react';
+
+import bug from './assets/images/bug.svg';
+import dark from './assets/images/dark.svg';
+import dragon from './assets/images/dragon.svg';
+import electric from './assets/images/electric.svg';
+import fairy from './assets/images/fairy.svg';
+import fighting from './assets/images/fighting.svg';
+import fire from './assets/images/fire.svg';
+import flying from './assets/images/flying.svg';
+import ghost from './assets/images/ghost.svg';
+import grass from './assets/images/grass.svg';
+import ground from './assets/images/ground.svg';
+import ice from './assets/images/ice.svg';
+import normal from './assets/images/normal.svg';
+import poison from './assets/images/poison.svg';
+import pokeball from './assets/images/pokeball.svg';
+import psychic from './assets/images/psychic.svg';
+import rock from './assets/images/rock.svg';
+import steel from './assets/images/steel.svg';
+import water from './assets/images/water.svg';
 
 /**
  *  Iconos de los tipos de Pokémon
@@ -43,28 +44,18 @@ const icns: any = {
   water,
 };
 
-const regs = [
-  "kanto",
-  "johto",
-  "hoenn",
-  "sinnoh",
-  "unova",
-  "kalos",
-  "alola",
-  "galar",
-  "paldea",
-];
+const regs = ['kanto', 'johto', 'hoenn', 'sinnoh', 'unova', 'kalos', 'alola', 'galar', 'paldea'];
 
 export const App = () => {
   const [ldr, setLdr] = useState<any>(false);
   const [fltr, setFltr] = useState<any>(false);
   const [result, setResult] = useState<any>([]);
   const [finalResult, setFinalResult] = useState<any>([]);
-  const [busqueda, setBusqueda] = useState<any>("");
-  const [reg, setreg] = useState<any>("kanto");
+  const [busqueda, setBusqueda] = useState<any>('');
+  const [reg, setreg] = useState<any>('kanto');
   const [showregs, setShowregs] = useState<any>(false);
   const [showSort, setShowSort] = useState<any>(false);
-  const [sorting, setSort] = useState<any>("default");
+  const [sorting, setSort] = useState<any>('default');
 
   useEffect(() => {
     /**
@@ -75,31 +66,31 @@ export const App = () => {
       setFltr(true);
 
       let regStart, regEnd;
-      if (reg === "kanto") {
+      if (reg === 'kanto') {
         regStart = 0;
         regEnd = 151;
-      } else if (reg === "johto") {
+      } else if (reg === 'johto') {
         regStart = 151;
         regEnd = 100;
-      } else if (reg === "hoenn") {
+      } else if (reg === 'hoenn') {
         regStart = 251;
         regEnd = 135;
-      } else if (reg === "sinnoh") {
+      } else if (reg === 'sinnoh') {
         regStart = 386;
         regEnd = 108;
-      } else if (reg === "unova") {
+      } else if (reg === 'unova') {
         regStart = 494;
         regEnd = 155;
-      } else if (reg === "kalos") {
+      } else if (reg === 'kalos') {
         regStart = 649;
         regEnd = 72;
-      } else if (reg === "alola") {
+      } else if (reg === 'alola') {
         regStart = 721;
         regEnd = 88;
-      } else if (reg === "galar") {
+      } else if (reg === 'galar') {
         regStart = 809;
         regEnd = 96;
-      } else if (reg === "paldea") {
+      } else if (reg === 'paldea') {
         regStart = 905;
         regEnd = 120;
       } else {
@@ -107,12 +98,10 @@ export const App = () => {
         regEnd = 151;
       }
       const { results }: any = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?offset=${regStart}&limit=${regEnd}`,
+        `https://pokeapi.co/api/v2/pokemon?offset=${regStart}&limit=${regEnd}`
       ).then((res) => res.json());
       const result = await Promise.all(
-        results.map(
-          async ({ url }) => await fetch(url).then((res) => res.json()),
-        ),
+        results.map(async ({ url }) => await fetch(url).then((res) => res.json()))
       );
       setResult(result);
       setFinalResult(result);
@@ -128,10 +117,8 @@ export const App = () => {
       result.filter(
         (res) =>
           res.name.includes(busqueda.toLowerCase()) ||
-          !!res.types.find((type) =>
-            type.type.name.startsWith(busqueda.toLowerCase()),
-          ),
-      ),
+          !!res.types.find((type) => type.type.name.startsWith(busqueda.toLowerCase()))
+      )
     );
     setFltr(false);
   }, [result[0]?.id, busqueda]);
@@ -139,75 +126,67 @@ export const App = () => {
    * Sorts results based on selected sorting criteria.
    */
   useEffect(() => {
-    if (sorting !== "default") {
-      if (sorting === "hp") {
+    if (sorting !== 'default') {
+      if (sorting === 'hp') {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
-            const aStat = a.stats.find((stat) => stat.stat.name === "hp");
-            const bStat = b.stats.find((stat) => stat.stat.name === "hp");
+            const aStat = a.stats.find((stat) => stat.stat.name === 'hp');
+            const bStat = b.stats.find((stat) => stat.stat.name === 'hp');
             return bStat.base_stat - aStat.base_stat;
-          }),
+          })
         );
       }
-      if (sorting === "attack") {
+      if (sorting === 'attack') {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
-            const aStat = a.stats.find((stat) => stat.stat.name === "attack");
-            const bStat = b.stats.find((stat) => stat.stat.name === "attack");
+            const aStat = a.stats.find((stat) => stat.stat.name === 'attack');
+            const bStat = b.stats.find((stat) => stat.stat.name === 'attack');
             return bStat.base_stat - aStat.base_stat;
-          }),
+          })
         );
       }
-      if (sorting === "defense") {
+      if (sorting === 'defense') {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
-            const aStat = a.stats.find((stat) => stat.stat.name === "defense");
-            const bStat = b.stats.find((stat) => stat.stat.name === "defense");
+            const aStat = a.stats.find((stat) => stat.stat.name === 'defense');
+            const bStat = b.stats.find((stat) => stat.stat.name === 'defense');
             return bStat.base_stat - aStat.base_stat;
-          }),
+          })
         );
       }
-      if (sorting === "special-attack") {
+      if (sorting === 'special-attack') {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
-            const aStat = a.stats.find(
-              (stat) => stat.stat.name === "special-attack",
-            );
-            const bStat = b.stats.find(
-              (stat) => stat.stat.name === "special-attack",
-            );
+            const aStat = a.stats.find((stat) => stat.stat.name === 'special-attack');
+            const bStat = b.stats.find((stat) => stat.stat.name === 'special-attack');
             return bStat.base_stat - aStat.base_stat;
-          }),
+          })
         );
       }
-      if (sorting === "special-defense") {
+      if (sorting === 'special-defense') {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
-            const aStat = a.stats.find(
-              (stat) => stat.stat.name === "special-defense",
-            );
-            const bStat = b.stats.find(
-              (stat) => stat.stat.name === "special-defense",
-            );
+            const aStat = a.stats.find((stat) => stat.stat.name === 'special-defense');
+            const bStat = b.stats.find((stat) => stat.stat.name === 'special-defense');
             return bStat.base_stat - aStat.base_stat;
-          }),
+          })
         );
       }
-      if (sorting === "speed") {
+      if (sorting === 'speed') {
         setFinalResult((prev) =>
           [...prev].sort((a, b) => {
-            const aStat = a.stats.find((stat) => stat.stat.name === "speed");
-            const bStat = b.stats.find((stat) => stat.stat.name === "speed");
+            const aStat = a.stats.find((stat) => stat.stat.name === 'speed');
+            const bStat = b.stats.find((stat) => stat.stat.name === 'speed');
             return bStat.base_stat - aStat.base_stat;
-          }),
+          })
         );
       }
     }
-    if (sorting === "default") {
+    if (sorting === 'default') {
       setFinalResult((prev) =>
         [...prev].sort((a, b) => {
           return a.id - b.id;
-        }),
+        })
       );
     }
   }, [finalResult[0]?.id, sorting]);
@@ -222,13 +201,7 @@ export const App = () => {
       {/* Searcher */}
       <main className="container">
         <section className="search">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="search__icon"
-          >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="search__icon">
             <path
               d="M3 10C3 10.9193 3.18106 11.8295 3.53284 12.6788C3.88463 13.5281 4.40024 14.2997 5.05025 14.9497C5.70026 15.5998 6.47194 16.1154 7.32122 16.4672C8.1705 16.8189 9.08075 17 10 17C10.9193 17 11.8295 16.8189 12.6788 16.4672C13.5281 16.1154 14.2997 15.5998 14.9497 14.9497C15.5998 14.2997 16.1154 13.5281 16.4672 12.6788C16.8189 11.8295 17 10.9193 17 10C17 9.08075 16.8189 8.1705 16.4672 7.32122C16.1154 6.47194 15.5998 5.70026 14.9497 5.05025C14.2997 4.40024 13.5281 3.88463 12.6788 3.53284C11.8295 3.18106 10.9193 3 10 3C9.08075 3 8.1705 3.18106 7.32122 3.53284C6.47194 3.88463 5.70026 4.40024 5.05025 5.05025C4.40024 5.70026 3.88463 6.47194 3.53284 7.32122C3.18106 8.1705 3 9.08075 3 10Z"
               stroke="var(--color-neutral-400)"
@@ -258,7 +231,7 @@ export const App = () => {
               aria-controls="reg-list"
               aria-label="Select reg"
               aria-expanded={showregs}
-              className={`dropdown__button ${showregs ? "active" : ""}`}
+              className={`dropdown__button ${showregs ? 'active' : ''}`}
               onClick={() =>
                 setShowregs((prev) => {
                   if (showSort) {
@@ -296,7 +269,7 @@ export const App = () => {
               role="listbox"
               id="reg-list"
               hidden={!showregs}
-              className={`dropdown__list ${!showregs ? "hide" : ""}`}
+              className={`dropdown__list ${!showregs ? 'hide' : ''}`}
             >
               {regs.map((key) => (
                 <li
@@ -304,13 +277,13 @@ export const App = () => {
                   role="radio"
                   aria-checked={reg === key}
                   tabIndex={0}
-                  className={reg === key ? "active" : ""}
+                  className={reg === key ? 'active' : ''}
                   onClick={() => {
                     setreg(key);
                     setShowregs(false);
                   }}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") {
+                    if (e.key === 'Enter') {
                       setreg(key);
                       setShowregs(false);
                     }
@@ -342,9 +315,7 @@ export const App = () => {
               height="24"
               viewBox="0 0 24 24"
               fill="none"
-              stroke={
-                showSort ? "var(--color-accent)" : "var(--color-neutral-700)"
-              }
+              stroke={showSort ? 'var(--color-accent)' : 'var(--color-neutral-700)'}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -367,81 +338,75 @@ export const App = () => {
                   role="radio"
                   aria-label="Default"
                   tabIndex={0}
-                  className={`sort__pill ${
-                    sorting === "default" ? "active" : ""
-                  }`}
-                  aria-checked={sorting === "default"}
+                  className={`sort__pill ${sorting === 'default' ? 'active' : ''}`}
+                  aria-checked={sorting === 'default'}
                   onClick={() => {
-                    setSort("default");
+                    setSort('default');
                     setShowSort(false);
                   }}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      setSort("default");
+                    if (e.key === 'Enter') {
+                      setSort('default');
                       setShowSort(false);
                     }
                   }}
                 >
-                  {" "}
+                  {' '}
                   Default
                 </span>
                 <span
                   role="radio"
                   aria-label="Health points"
                   tabIndex={0}
-                  className={`sort__pill ${sorting === "hp" ? "active" : ""}`}
-                  aria-checked={sorting === "hp"}
+                  className={`sort__pill ${sorting === 'hp' ? 'active' : ''}`}
+                  aria-checked={sorting === 'hp'}
                   onClick={() => {
-                    setSort("hp");
+                    setSort('hp');
                     setShowSort(false);
                   }}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      setSort("hp");
+                    if (e.key === 'Enter') {
+                      setSort('hp');
                       setShowSort(false);
                     }
                   }}
                 >
-                  {" "}
+                  {' '}
                   Hp
                 </span>
                 <span
                   role="radio"
                   aria-label="Attack"
                   tabIndex={0}
-                  className={`sort__pill ${
-                    sorting === "attack" ? "active" : ""
-                  }`}
-                  aria-checked={sorting === "attack"}
+                  className={`sort__pill ${sorting === 'attack' ? 'active' : ''}`}
+                  aria-checked={sorting === 'attack'}
                   onClick={() => {
-                    setSort("attack");
+                    setSort('attack');
                     setShowSort(false);
                   }}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      setSort("attack");
+                    if (e.key === 'Enter') {
+                      setSort('attack');
                       setShowSort(false);
                     }
                   }}
                 >
-                  {" "}
+                  {' '}
                   At
                 </span>
                 <span
                   role="radio"
                   aria-label="Defense"
                   tabIndex={0}
-                  className={`sort__pill ${
-                    sorting === "defense" ? "active" : ""
-                  }`}
-                  aria-checked={sorting === "defense"}
+                  className={`sort__pill ${sorting === 'defense' ? 'active' : ''}`}
+                  aria-checked={sorting === 'defense'}
                   onClick={() => {
-                    setSort("defense");
+                    setSort('defense');
                     setShowSort(false);
                   }}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      setSort("defense");
+                    if (e.key === 'Enter') {
+                      setSort('defense');
                       setShowSort(false);
                     }
                   }}
@@ -452,39 +417,35 @@ export const App = () => {
                   role="radio"
                   aria-label="Special attack"
                   tabIndex={0}
-                  className={`sort__pill ${
-                    sorting === "specialAttack" ? "active" : ""
-                  }`}
-                  aria-checked={sorting === "specialAttack"}
+                  className={`sort__pill ${sorting === 'specialAttack' ? 'active' : ''}`}
+                  aria-checked={sorting === 'specialAttack'}
                   onClick={() => {
-                    setSort("specialAttack");
+                    setSort('specialAttack');
                     setShowSort(false);
                   }}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      setSort("specialAttack");
+                    if (e.key === 'Enter') {
+                      setSort('specialAttack');
                       setShowSort(false);
                     }
                   }}
                 >
-                  {" "}
+                  {' '}
                   SpA
                 </span>
                 <span
                   role="radio"
                   aria-label="Special defense"
                   tabIndex={0}
-                  className={`sort__pill ${
-                    sorting === "specialDefense" ? "active" : ""
-                  }`}
-                  aria-checked={sorting === "specialDefense"}
+                  className={`sort__pill ${sorting === 'specialDefense' ? 'active' : ''}`}
+                  aria-checked={sorting === 'specialDefense'}
                   onClick={() => {
-                    setSort("specialDefense");
+                    setSort('specialDefense');
                     setShowSort(false);
                   }}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      setSort("specialDefense");
+                    if (e.key === 'Enter') {
+                      setSort('specialDefense');
                       setShowSort(false);
                     }
                   }}
@@ -495,22 +456,20 @@ export const App = () => {
                   role="radio"
                   aria-label="Speed"
                   tabIndex={0}
-                  className={`sort__pill ${
-                    sorting === "speed" ? "active" : ""
-                  }`}
-                  aria-checked={sorting === "speed"}
+                  className={`sort__pill ${sorting === 'speed' ? 'active' : ''}`}
+                  aria-checked={sorting === 'speed'}
                   onClick={() => {
-                    setSort("speed");
+                    setSort('speed');
                     setShowSort(false);
                   }}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      setSort("speed");
+                    if (e.key === 'Enter') {
+                      setSort('speed');
                       setShowSort(false);
                     }
                   }}
                 >
-                  {" "}
+                  {' '}
                   Spd
                 </span>
               </div>
@@ -524,10 +483,7 @@ export const App = () => {
             <div className="grid" aria-hidden="true">
               {Array.from({ length: 6 }, (_, index) => {
                 return (
-                  <article
-                    key={`placeholder-card-${index}`}
-                    className="card card-placeholder"
-                  >
+                  <article key={`placeholder-card-${index}`} className="card card-placeholder">
                     <svg viewBox="0 0 24 24">
                       <path d="M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M12,4C7.92,4 4.55,7.05 4.06,11H8.13C8.57,9.27 10.14,8 12,8C13.86,8 15.43,9.27 15.87,11H19.94C19.45,7.05 16.08,4 12,4M12,20C16.08,20 19.45,16.95 19.94,13H15.87C15.43,14.73 13.86,16 12,16C10.14,16 8.57,14.73 8.13,13H4.06C4.55,16.95 7.92,20 12,20M12,10C10.9,10 10,10.9 10,12C10,13.1 10.9,14 12,14C13.1,14 14,13.1 14,12C14,10.9 13.1,10 12,10Z" />
                     </svg>
@@ -541,7 +497,7 @@ export const App = () => {
             <ul className="grid">
               {finalResult.map((res) => {
                 const customStyles: any = {
-                  "--color-type": `var(--color-${res.types[0].type.name}`,
+                  '--color-type': `var(--color-${res.types[0].type.name}`,
                 };
 
                 return (
@@ -549,7 +505,7 @@ export const App = () => {
                     <article className="card" style={customStyles}>
                       <header className="card__head">
                         <div className="card__tag">
-                          <p>#{res.id.toString().padStart(3, "0")}</p>
+                          <p>#{res.id.toString().padStart(3, '0')}</p>
                         </div>
                         <div className="card__tag">
                           <img
@@ -568,9 +524,7 @@ export const App = () => {
                       </header>
                       <img
                         className="card__avatar"
-                        src={
-                          res.sprites.other["official-artwork"].front_default
-                        }
+                        src={res.sprites.other['official-artwork'].front_default}
                         loading="lazy"
                         alt={`${res.name} artwork`}
                       />
@@ -584,10 +538,7 @@ export const App = () => {
                               </p>
                               <p>{res.stats[0].base_stat}</p>
                             </div>
-                            <progress
-                              value={res.stats[0].base_stat}
-                              max="255"
-                            ></progress>
+                            <progress value={res.stats[0].base_stat} max="255"></progress>
                           </li>
                           <li className="card__stat" aria-label="Attack">
                             <div className="stat__value">
@@ -596,10 +547,7 @@ export const App = () => {
                               </p>
                               <p>{res.stats[1].base_stat}</p>
                             </div>
-                            <progress
-                              value={res.stats[1].base_stat}
-                              max="255"
-                            ></progress>
+                            <progress value={res.stats[1].base_stat} max="255"></progress>
                           </li>
                           <li className="card__stat" aria-label="Defense">
                             <div className="stat__value">
@@ -608,40 +556,25 @@ export const App = () => {
                               </p>
                               <p>{res.stats[2].base_stat}</p>
                             </div>
-                            <progress
-                              value={res.stats[2].base_stat}
-                              max="255"
-                            ></progress>
+                            <progress value={res.stats[2].base_stat} max="255"></progress>
                           </li>
-                          <li
-                            className="card__stat"
-                            aria-label="Special attack"
-                          >
+                          <li className="card__stat" aria-label="Special attack">
                             <div className="stat__value">
                               <p className="stat__name" aria-hidden="true">
                                 SpA
                               </p>
                               <p>{res.stats[3].base_stat}</p>
                             </div>
-                            <progress
-                              value={res.stats[3].base_stat}
-                              max="255"
-                            ></progress>
+                            <progress value={res.stats[3].base_stat} max="255"></progress>
                           </li>
-                          <li
-                            className="card__stat"
-                            aria-label="Special defense"
-                          >
+                          <li className="card__stat" aria-label="Special defense">
                             <div className="stat__value">
                               <p className="stat__name" aria-hidden="true">
                                 SpD
                               </p>
                               <p>{res.stats[4].base_stat}</p>
                             </div>
-                            <progress
-                              value={res.stats[4].base_stat}
-                              max="255"
-                            ></progress>
+                            <progress value={res.stats[4].base_stat} max="255"></progress>
                           </li>
                           <li className="card__stat" aria-label="Speed">
                             <div className="stat__value">
@@ -650,10 +583,7 @@ export const App = () => {
                               </p>
                               <p>{res.stats[5].base_stat}</p>
                             </div>
-                            <progress
-                              value={res.stats[5].base_stat}
-                              max="255"
-                            ></progress>
+                            <progress value={res.stats[5].base_stat} max="255"></progress>
                           </li>
                         </ul>
                       </section>
@@ -671,9 +601,8 @@ export const App = () => {
 
       <footer className="footer">
         <p>
-          ©{new Date().getFullYear()} Pokémon. ©1995 -{" "}
-          {new Date().getFullYear()} Nintendo/Creatures Inc./GAME FREAK inc. TM,
-          ®Nintendo.
+          ©{new Date().getFullYear()} Pokémon. ©1995 - {new Date().getFullYear()} Nintendo/Creatures
+          Inc./GAME FREAK inc. TM, ®Nintendo.
         </p>
       </footer>
     </div>

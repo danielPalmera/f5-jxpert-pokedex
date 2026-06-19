@@ -1,4 +1,5 @@
-import { SortFiltersOptions } from "../../constants/Stats";
+import { SortFiltersOptions } from '../../constants/Stats';
+
 interface Props {
   showSort: boolean;
   sorting: string;
@@ -7,13 +8,7 @@ interface Props {
   onToggle: () => void;
 }
 
-export const OrderControls = ({
-  showSort,
-  sorting,
-  showregs,
-  onSortChange,
-  onToggle,
-}: Props) => {
+export const OrderControls = ({ showSort, sorting, showregs, onSortChange, onToggle }: Props) => {
   return (
     <>
       <button
@@ -31,7 +26,7 @@ export const OrderControls = ({
           height="24"
           viewBox="0 0 24 24"
           fill="none"
-          stroke={showSort ? "var(--color-accent)" : "var(--color-neutral-700)"}
+          stroke={showSort ? 'var(--color-accent)' : 'var(--color-neutral-700)'}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -55,11 +50,11 @@ export const OrderControls = ({
                 role="radio"
                 aria-label={opt.label}
                 tabIndex={0}
-                className={`sort__pill ${sorting === key ? "active" : ""}`}
+                className={`sort__pill ${sorting === key ? 'active' : ''}`}
                 aria-checked={sorting === key}
                 onClick={() => onSortChange(key)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") onSortChange(key);
+                  if (e.key === 'Enter') onSortChange(key);
                 }}
               >
                 {opt.StatShortName}

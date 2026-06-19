@@ -1,6 +1,6 @@
-import { Header } from "./components/atoms/Header";
-import { Footer } from "./components/atoms/Footer";
-import { Search } from "./components/organisms/SearchSection";
+import { Footer } from './components/atoms/Footer';
+import { Header } from './components/atoms/Header';
+import { Search } from './components/organisms/SearchSection';
 
 export const App2 = () => {
   return (

@@ -14,7 +14,7 @@
 
       body {
         background-color: #0b0c10;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -114,12 +114,7 @@
 
       /* 3. DRAGON */
       .dragon:hover {
-        background: linear-gradient(
-          135deg,
-          #021b79 0%,
-          #0575e6 50%,
-          #b10000 100%
-        );
+        background: linear-gradient(135deg, #021b79 0%, #0575e6 50%, #b10000 100%);
         border: 2px solid #ffd700;
         box-shadow:
           0 0 30px #ff1744,
@@ -157,7 +152,7 @@
         box-shadow: 0 0 30px #ff5722;
       }
       .fire .effect-container::before {
-        content: "";
+        content: '';
         position: absolute;
         background: rgba(255, 193, 7, 0.6);
         border-radius: 50%;
@@ -210,16 +205,11 @@
           inset 0 0 15px rgba(255, 255, 255, 0.4);
       }
       .ice .effect-container::before {
-        content: "";
+        content: '';
         position: absolute;
         inset: 0;
         transform: skewX(-30deg) translateX(-150%);
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.3),
-          transparent
-        );
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
       }
       .ice:hover .effect-container::before {
         animation: ice-flash 1s infinite linear;
@@ -268,7 +258,7 @@
         box-shadow: 0 0 30px #6890f0;
       }
       .water .effect-container::after {
-        content: "";
+        content: '';
         position: absolute;
         bottom: -50%;
         left: -50%;

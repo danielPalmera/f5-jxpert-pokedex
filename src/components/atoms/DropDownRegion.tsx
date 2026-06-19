@@ -1,4 +1,4 @@
-import { Regions } from "../../constants/Regions";
+import { Regions } from '../../constants/Regions';
 
 interface Props {
   region: string;
@@ -8,12 +8,7 @@ interface Props {
   onToggle: () => void;
 }
 
-export const DropDownRegion = ({
-  region,
-  showregs,
-  onRegionChange,
-  onToggle,
-}: Props) => {
+export const DropDownRegion = ({ region, showregs, onRegionChange, onToggle }: Props) => {
   return (
     <div className="dropdown">
       <button
@@ -22,7 +17,7 @@ export const DropDownRegion = ({
         aria-controls="reg-list"
         aria-label="Select reg"
         aria-expanded={showregs}
-        className={`dropdown__button ${showregs ? "active" : ""}`}
+        className={`dropdown__button ${showregs ? 'active' : ''}`}
         onClick={onToggle}
       >
         {region}
@@ -53,7 +48,7 @@ export const DropDownRegion = ({
         role="listbox"
         id="reg-list"
         hidden={!showregs}
-        className={`dropdown__list ${!showregs ? "hide" : ""}`}
+        className={`dropdown__list ${!showregs ? 'hide' : ''}`}
       >
         {Object.keys(Regions).map((key) => (
           <li
@@ -61,12 +56,12 @@ export const DropDownRegion = ({
             role="radio"
             aria-checked={region === key}
             tabIndex={0}
-            className={region === key ? "active" : ""}
+            className={region === key ? 'active' : ''}
             onClick={() => {
               onRegionChange(key);
             }}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === 'Enter') {
                 onRegionChange(key);
               }
             }}

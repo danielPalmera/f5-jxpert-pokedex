@@ -1,4 +1,4 @@
-import pokeball from "../../assets/images/pokeball.svg";
+import pokeball from '../../assets/images/pokeball.svg';
 
 export const Header = ({ title }: { title: string }) => {
   return (

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { getPokemons } from "../api/pokemonApi";
+import { useEffect, useState } from 'react';
+
+import { getPokemons } from '../api/pokemonApi';
 
 export function usePokemonData(region: string) {
   const [result, setResult] = useState<any[]>([]);
@@ -19,7 +20,7 @@ export function usePokemonData(region: string) {
       })
       .catch((err) => {
         if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Error loading Pokémon");
+          setError(err instanceof Error ? err.message : 'Error loading Pokémon');
           setLoading(false);
         }
       });

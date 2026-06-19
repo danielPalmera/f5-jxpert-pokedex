@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export function usePokemonFilter(result: any[], busqueda: string) {
   const [filtered, setFiltered] = useState<any[]>([]);
@@ -8,10 +8,8 @@ export function usePokemonFilter(result: any[], busqueda: string) {
       result.filter(
         (res) =>
           res.name.includes(busqueda.toLowerCase()) ||
-          !!res.types.find((type) =>
-            type.type.name.startsWith(busqueda.toLowerCase()),
-          ),
-      ),
+          !!res.types.find((type) => type.type.name.startsWith(busqueda.toLowerCase()))
+      )
     );
   }, [result[0]?.id, busqueda]);
 
