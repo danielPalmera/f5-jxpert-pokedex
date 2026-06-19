@@ -1,10 +1,9 @@
 import { CardTagNumber } from "../atoms/CardTagNumber";
 import { CardTagTypeList } from "./CardTagTypeList";
 import { CardProgressStat } from "../atoms/CardProgressStat";
-import { PokemonCardData, PokemonStat } from "../../types/PokemonCardData";
-import { Stats } from "../../constants/Stats";
+import { PokemonCardData, PokemonCardStat } from "../../types/PokemonCardData";
 
-export const PokemonCard = ({ data }: { data: PokemonCardData }) => {
+export const PokemonCard = ({ data, cardStats }: { data: PokemonCardData; cardStats: PokemonCardStat[] }) => {
   const customStyles: any = {
     "--color-type": `var(--color-${data.types[0].type.name})`,
   };
@@ -29,18 +28,13 @@ export const PokemonCard = ({ data }: { data: PokemonCardData }) => {
         <section className="card__content">
           <h3 className="card__title">{data.name}</h3>
           <ul aria-description="Stats resume">
-            {data.stats.map((stat: PokemonStat, index: number) => {
-              const statInfo = Object.values(Stats).find(
-                (s) => s.apiStatName === stat.name,
-              );
-              return (
-                <CardProgressStat
-                  key={`pokemon-card-${data.id}-stat-${index}`}
-                  base={stat.base}
-                  shortName={statInfo?.StatShortName || stat.name}
-                />
-              );
-            })}
+            {cardStats.map((stat, index) => (
+              <CardProgressStat
+                key={`pokemon-card-${data.id}-stat-${index}`}
+                base={stat.base}
+                shortName={stat.shortName}
+              />
+            ))}
           </ul>
         </section>
       </article>

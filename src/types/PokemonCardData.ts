@@ -1,3 +1,8 @@
+export interface PokemonCardStat {
+  base: number;
+  shortName: string;
+}
+
 export interface PokemonStat {
   name: string;
   base: number;

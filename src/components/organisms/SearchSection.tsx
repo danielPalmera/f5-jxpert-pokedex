@@ -8,6 +8,8 @@ import { RegionToggle } from "../atoms/RegionToggle";
 import { RegionDropdown } from "../molecules/RegionDropdown";
 import { SortToggle } from "../atoms/SortToggle";
 import { SortPanel } from "../molecules/SortPanel";
+import { Stats } from "../../constants/Stats";
+import { PokemonCardStat } from "../../types/PokemonCardData";
 import errorImg from "../../assets/images/pokedex.png";
 
 export const Search = () => {
@@ -103,7 +105,13 @@ export const Search = () => {
         {!loading && sorted.length > 0 && (
           <ul className="grid">
             {sorted.map((res) => {
-              return <PokemonCard key={`pokemon-card-${res.id}`} data={res} />;
+              const cardStats: PokemonCardStat[] = res.stats.map((stat) => {
+                const info = Object.values(Stats).find(
+                  (s) => s.apiStatName === stat.name,
+                );
+                return { base: stat.base, shortName: info?.StatShortName || stat.name };
+              });
+              return <PokemonCard key={`pokemon-card-${res.id}`} data={res} cardStats={cardStats} />;
             })}
           </ul>
         )}
