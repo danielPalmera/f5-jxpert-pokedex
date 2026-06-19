@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { App } from "./App";
 import { App2 } from "./App2";
+import { NotFound } from "./NotFound";
 import { FloatingTab } from "./components/layout/FloatingTab";
 
 const routes = {
@@ -64,7 +65,7 @@ const router = createBrowserRouter([
       element: <Element />,
     })),
   },
-  { path: "*", element: <div className="notfound">Page not found</div> },
+  { path: "*", element: <NotFound /> },
 ]);
 
 export const Router = () => {
