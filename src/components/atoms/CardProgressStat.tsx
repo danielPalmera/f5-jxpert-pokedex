@@ -1,10 +1,8 @@
-import { PokemonStat } from "../../types/PokemonCardData";
-
 export const CardProgressStat = ({
-  stat,
+  base,
   shortName,
 }: {
-  stat: PokemonStat;
+  base: number;
   shortName: string;
 }) => {
   return (
@@ -13,9 +11,9 @@ export const CardProgressStat = ({
         <p className="stat__name" aria-hidden="true">
           {shortName}
         </p>
-        <p>{stat.base}</p>
+        <p>{base}</p>
       </div>
-      <progress value={stat.base} max="255"></progress>
+      <progress value={base} max="255"></progress>
     </li>
   );
 };

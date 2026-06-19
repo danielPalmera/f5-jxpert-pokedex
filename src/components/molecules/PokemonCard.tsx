@@ -36,7 +36,7 @@ export const PokemonCard = ({ data }: { data: PokemonCardData }) => {
               return (
                 <CardProgressStat
                   key={`pokemon-card-${data.id}-stat-${index}`}
-                  stat={stat}
+                  base={stat.base}
                   shortName={statInfo?.StatShortName || stat.name}
                 />
               );
