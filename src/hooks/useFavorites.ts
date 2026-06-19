@@ -1,8 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 
+const SPRITE_BASE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork";
+
+export function getSpriteUrl(id: number): string {
+  return `${SPRITE_BASE}/${id}.png`;
+}
+
 interface FavoriteItem {
   id: number;
   name: string;
+  height: number;
 }
 
 const STORAGE_KEY = "favorites";
@@ -24,10 +31,10 @@ export function useFavorites() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
   }, [favorites]);
 
-  const addFavorite = useCallback((id: number, name: string) => {
+  const addFavorite = useCallback((id: number, name: string, height: number) => {
     setFavorites((prev) => {
       if (prev.some((f) => f.id === id)) return prev;
-      const next = [...prev, { id, name }];
+      const next = [...prev, { id, name, height }];
       return next.length > MAX_FAVORITES ? next.slice(1) : next;
     });
   }, []);
@@ -42,11 +49,11 @@ export function useFavorites() {
   );
 
   const toggleFavorite = useCallback(
-    (id: number, name: string) => {
+    (id: number, name: string, height: number) => {
       if (isFavorite(id)) {
         removeFavorite(id);
       } else {
-        addFavorite(id, name);
+        addFavorite(id, name, height);
       }
     },
     [isFavorite, removeFavorite, addFavorite],

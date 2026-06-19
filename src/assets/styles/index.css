@@ -141,7 +141,7 @@ button {
 .header {
   display: flex;
   align-items: center;
-  gap: var(--spacing-m);
+  justify-content: space-between;
 
   position: sticky;
   z-index: 3;
@@ -160,11 +160,37 @@ button {
   box-shadow: var(--shadow-m);
 }
 
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-m);
+}
+
 .header__logo {
   width: var(--spacing-2xl);
+  cursor: pointer;
 }
 
 .header__title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--color-neutral-900);
+}
+
+.header__dream {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+  cursor: pointer;
+}
+
+.header__dream-img {
+  width: var(--spacing-2xl);
+  height: var(--spacing-2xl);
+  object-fit: contain;
+}
+
+.header__dream-text {
   font-size: 1.25rem;
   font-weight: bold;
   color: var(--color-neutral-900);
@@ -657,10 +683,13 @@ custom-progress::-ms-fill {
 .floating-tab {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 100;
   display: flex;
   gap: 1px;
+  border-radius: 0 0 12px 12px;
+  overflow: hidden;
 }
 
 .floating-tab__btn {

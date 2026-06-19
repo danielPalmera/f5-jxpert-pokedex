@@ -21,6 +21,7 @@ async function fetchDetail(url: string): Promise<PokemonCardData> {
   return {
     id: data.id,
     name: data.name,
+    height: data.height,
     types: data.types,
     sprites: data.sprites,
     stats: data.stats.map(

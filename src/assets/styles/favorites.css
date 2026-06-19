@@ -1,8 +1,10 @@
 .favorites-wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   flex: 1;
+  padding: 24px 16px;
+  box-sizing: border-box;
 }
 
 .favorites-outer {
@@ -16,7 +18,7 @@
 .favorites-inner {
   height: 100%;
   border-radius: 20px;
-  background: linear-gradient(to top right, #FDE4DA, #D4CEFF);
+  background: linear-gradient(to top right, #fde4da, #d4ceff);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -27,8 +29,9 @@
   background: #fff;
   padding: 8px 24px;
   border-radius: 0 0 16px 16px;
-  font-size: 14px;
-  font-weight: 600;
+  font-family: "Kanit", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 1.25rem;
+  font-weight: bold;
   line-height: 24px;
   max-height: 40px;
   box-sizing: border-box;
@@ -42,8 +45,82 @@
   gap: 8px;
 }
 
+.favorites-stack {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.favorites-stack-img {
+  position: absolute;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.15s;
+  cursor: pointer;
+}
+
+.favorites-stack-img:hover {
+  transform: scale(1.2);
+  z-index: 100 !important;
+}
+
 .favorites-sprite {
   width: 48px;
   height: 48px;
-  image-rendering: pixelated;
+}
+
+.favorites-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+  animation: overlay-fade-in 0.25s ease-out;
+}
+
+.favorites-overlay.closing {
+  animation: overlay-fade-out 0.25s ease-in forwards;
+}
+
+@keyframes overlay-fade-in {
+  from { background: rgba(0, 0, 0, 0); }
+  to { background: rgba(0, 0, 0, 0.7); }
+}
+
+@keyframes overlay-fade-out {
+  from { background: rgba(0, 0, 0, 0.7); }
+  to { background: rgba(0, 0, 0, 0); }
+}
+
+.favorites-overlay-img {
+  max-width: 80vw;
+  max-height: 80vh;
+  cursor: default;
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+  transform: scale(0.4);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease-out;
+}
+
+.favorites-overlay-img--open {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.favorites-storage {
+  background: #1a1a2e;
+  color: #e0e0e0;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-x: auto;
+  max-width: 888px;
+  width: 100%;
+  margin-top: 16px;
+  box-sizing: border-box;
 }

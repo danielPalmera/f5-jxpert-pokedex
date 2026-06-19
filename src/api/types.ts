@@ -11,6 +11,7 @@ export interface ApiPokemonListResponse {
 export interface ApiPokemonDetail {
   id: number;
   name: string;
+  height: number;
   stats: ApiStat[];
   types: ApiType[];
   sprites: ApiSprite;

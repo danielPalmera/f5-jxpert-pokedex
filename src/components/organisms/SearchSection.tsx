@@ -1,8 +1,7 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { usePokemonData } from "../../hooks/usePokemonData";
 import { usePokemonFilter } from "../../hooks/usePokemonFilter";
 import { usePokemonSort } from "../../hooks/usePokemonSort";
-import { useFavorites } from "../../hooks/useFavorites";
 import { PokemonCard } from "../molecules/PokemonCard";
 import { SkeletonGrid } from "../molecules/SkeletonGrid";
 import { RegionToggle } from "../atoms/RegionToggle";
@@ -13,14 +12,19 @@ import { Stats } from "../../constants/Stats";
 import { PokemonCardStat } from "../../types/PokemonCardData";
 import errorImg from "../../assets/images/pokedex.png";
 
-export const Search = () => {
+export const Search = ({
+  isFavorite,
+  toggleFavorite,
+}: {
+  isFavorite: (id: number) => boolean;
+  toggleFavorite: (id: number, name: string, height: number) => void;
+}) => {
   const [showregs, setShowregs] = useState<boolean>(false);
   const [showSort, setShowSort] = useState<boolean>(false);
   const [busqueda, setBusqueda] = useState<string>("");
   const [region, setRegion] = useState<string>("kanto");
   const [sorting, setSort] = useState<string>("default");
   const { result, loading, error } = usePokemonData(region);
-  const { isFavorite, toggleFavorite } = useFavorites();
   const filtered = usePokemonFilter(result, busqueda);
   const sorted = usePokemonSort(filtered, sorting);
 
@@ -111,7 +115,10 @@ export const Search = () => {
                 const info = Object.values(Stats).find(
                   (s) => s.apiStatName === stat.name,
                 );
-                return { base: stat.base, shortName: info?.StatShortName || stat.name };
+                return {
+                  base: stat.base,
+                  shortName: info?.StatShortName || stat.name,
+                };
               });
               return (
                 <PokemonCard
@@ -119,7 +126,9 @@ export const Search = () => {
                   data={res}
                   cardStats={cardStats}
                   isFav={isFavorite(res.id)}
-                  onToggleFav={() => toggleFavorite(res.id, res.name)}
+                  onToggleFav={() =>
+                    toggleFavorite(res.id, res.name, res.height)
+                  }
                 />
               );
             })}

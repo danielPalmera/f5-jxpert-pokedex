@@ -25,6 +25,7 @@ export interface PokemonSprite {
 export interface PokemonCardData {
   id: number;
   name: string;
+  height: number;
   types: PokemonType[];
   sprites: PokemonSprite;
   stats: PokemonStat[];
