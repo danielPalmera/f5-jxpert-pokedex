@@ -1,0 +1,101 @@
+body.party-mode {
+  --color-fighting: #ff6b6b;
+  --color-fire: #ff9f43;
+  --color-electric: #ffd93d;
+  --color-ground: #d4a373;
+  --color-normal: #dfe6e9;
+  --color-rock: #b2bec3;
+  --color-steel: #636e72;
+  --color-dark: #2d3436;
+  --color-grass: #55efc4;
+  --color-bug: #81ecec;
+  --color-ice: #74b9ff;
+  --color-water: #0984e3;
+  --color-flying: #a29bfe;
+  --color-dragon: #6c5ce7;
+  --color-fairy: #fd79a8;
+  --color-psychic: #e84393;
+  --color-poison: #a29bfe;
+  --color-ghost: #6c5ce7;
+
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #ffeef8;
+  --color-neutral-100: #ffd6e8;
+  --color-neutral-200: #ffb8d4;
+  --color-neutral-300: #ff94bc;
+  --color-neutral-400: #ff70a4;
+  --color-neutral-500: #ff4c8c;
+  --color-neutral-600: #e02474;
+  --color-neutral-700: #b81a5c;
+  --color-neutral-800: #8a1044;
+  --color-neutral-900: #5c082c;
+}
+
+body.party-mode .layout {
+  animation: party-bg 3s ease infinite;
+}
+
+@keyframes party-bg {
+  0% { background: #ffebee; }
+  25% { background: #fff3e0; }
+  50% { background: #e8f5e9; }
+  75% { background: #e3f2fd; }
+  100% { background: #ffebee; }
+}
+
+body.party-mode .card {
+  animation: party-card 1s ease-in-out infinite;
+  border-color: var(--color-accent) !important;
+}
+
+@keyframes party-card {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+body.party-mode .card__avatar {
+  animation: party-spin 2s linear infinite;
+}
+
+@keyframes party-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(5deg) scale(1.05); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+body.party-mode .header__title {
+  animation: party-text 1.5s ease infinite;
+  background: linear-gradient(90deg, red, orange, yellow, green, blue, purple);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.party-mode .floating-tab__btn--party {
+  background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+  animation: party-glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes party-glow {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.4); }
+}
+
+body.party-mode .search input {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 12px rgba(125, 59, 236, 0.4);
+}
+
+body.party-mode .stat__bar {
+  animation: stat-rainbow 2s linear infinite;
+}
+
+@keyframes stat-rainbow {
+  0% { background: red; }
+  16% { background: orange; }
+  33% { background: yellow; }
+  50% { background: green; }
+  66% { background: blue; }
+  83% { background: indigo; }
+  100% { background: violet; }
+}
