@@ -5,9 +5,10 @@ import {
   RouterProvider,
   useNavigate,
 } from "react-router-dom";
-import { App } from "./App";
-import { App2 } from "./App2";
-import { NotFound } from "./NotFound";
+import { App } from "./pages/App";
+import { App2 } from "./pages/App2";
+import { NotFound } from "./pages/NotFound";
+import { Favorites } from "./pages/Favorites";
 import { FloatingTab } from "./components/layout/FloatingTab";
 
 const routes = {
@@ -18,6 +19,10 @@ const routes = {
   old: {
     path: "/original",
     element: App,
+  },
+  favs: {
+    path: "/favorites",
+    element: Favorites,
   },
 };
 
@@ -49,6 +54,7 @@ const Layout = () => {
       <FloatingTab
         onNavOld={() => navigate("/original")}
         onNavNew={() => navigate("/")}
+        onNavFav={() => navigate("/favorites")}
         onToggleParty={() => setParty((prev) => !prev)}
         party={party}
       />

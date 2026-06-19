@@ -1,6 +1,6 @@
-import { Header } from "./components/layout/Header";
-import { Footer } from "./components/layout/Footer";
-import errorImg from "./assets/images/pokedex.png";
+import { Header } from "../components/layout/Header";
+import { Footer } from "../components/layout/Footer";
+import errorImg from "../assets/images/pokedex.png";
 
 export const NotFound = () => {
   return (

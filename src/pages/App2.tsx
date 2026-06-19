@@ -1,6 +1,6 @@
-import { Header } from "./components/layout/Header";
-import { Footer } from "./components/layout/Footer";
-import { Search } from "./components/organisms/SearchSection";
+import { Header } from "../components/layout/Header";
+import { Footer } from "../components/layout/Footer";
+import { Search } from "../components/organisms/SearchSection";
 
 export const App2 = () => {
   return (
