@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import {
   createBrowserRouter,
   Outlet,
@@ -6,6 +7,7 @@ import {
 } from "react-router-dom";
 import { App } from "./App";
 import { App2 } from "./App2";
+import { FloatingTab } from "./components/atoms/FloatingTab";
 
 const routes = {
   home: {
@@ -20,20 +22,35 @@ const routes = {
 
 const Layout = () => {
   const navigate = useNavigate();
+  const [party, setParty] = useState(false);
+  const linkRef = useRef<HTMLLinkElement | null>(null);
+
+  useEffect(() => {
+    if (party) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "/assets/styles/styles-party.css";
+      document.head.appendChild(link);
+      linkRef.current = link;
+    } else if (linkRef.current?.parentNode) {
+      linkRef.current.parentNode.removeChild(linkRef.current);
+      linkRef.current = null;
+    }
+    return () => {
+      if (linkRef.current?.parentNode) {
+        linkRef.current.parentNode.removeChild(linkRef.current);
+      }
+    };
+  }, [party]);
 
   return (
     <>
-      <aside className="floating-tab">
-        <button
-          className="floating-tab__btn"
-          onClick={() => navigate("/original")}
-        >
-          O
-        </button>
-        <button className="floating-tab__btn" onClick={() => navigate("/")}>
-          N
-        </button>
-      </aside>
+      <FloatingTab
+        onNavOld={() => navigate("/original")}
+        onNavNew={() => navigate("/")}
+        onToggleParty={() => setParty((prev) => !prev)}
+        party={party}
+      />
       <Outlet />
     </>
   );

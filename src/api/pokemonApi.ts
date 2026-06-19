@@ -1,7 +1,6 @@
 import { Regions } from "../constants/Regions";
-import type { PokemonCardData } from "../types/PokemonCardData";
+import type { PokemonCardData, PokemonStat } from "../types/PokemonCardData";
 import type { ApiPokemonDetail, ApiPokemonListResponse } from "./types";
-import type { pokemonStat } from "../types/Stats";
 
 const POKEAPI_BASE = "https://pokeapi.co/api/v2";
 
@@ -25,7 +24,7 @@ async function fetchDetail(url: string): Promise<PokemonCardData> {
     types: data.types,
     sprites: data.sprites,
     stats: data.stats.map(
-      (s): pokemonStat => ({
+      (s): PokemonStat => ({
         name: s.stat.name,
         base: Number(s.base_stat),
       }),
