@@ -1,4 +1,4 @@
-import { SortFilterOption } from "../types/Stats";
+import { SortFilterOption } from "../types/SortFilterOption";
 
 export const Stats: Record<string, SortFilterOption> = {
   hp: { label: "Health points", StatShortName: "Hp", apiStatName: "hp" },

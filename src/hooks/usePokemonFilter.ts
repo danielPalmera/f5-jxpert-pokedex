@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
+import { PokemonCardData } from "../types/PokemonCardData";
 
-export function usePokemonFilter(result: any[], busqueda: string) {
-  const [filtered, setFiltered] = useState<any[]>([]);
-
-  useEffect(() => {
-    setFiltered(
+export function usePokemonFilter(result: PokemonCardData[], busqueda: string): PokemonCardData[] {
+  return useMemo(
+    () =>
       result.filter(
         (res) =>
           res.name.includes(busqueda.toLowerCase()) ||
@@ -12,8 +11,6 @@ export function usePokemonFilter(result: any[], busqueda: string) {
             type.type.name.startsWith(busqueda.toLowerCase()),
           ),
       ),
-    );
-  }, [result[0]?.id, busqueda]);
-
-  return filtered;
+    [result, busqueda],
+  );
 }

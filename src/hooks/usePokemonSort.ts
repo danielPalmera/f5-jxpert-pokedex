@@ -1,24 +1,18 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { SortFiltersOptions } from "../constants/Stats";
+import { PokemonCardData } from "../types/PokemonCardData";
 
-export function usePokemonSort(filtered: any[], sorting: string) {
-  const [sorted, setSorted] = useState<any[]>([]);
-
-  useEffect(() => {
+export function usePokemonSort(filtered: PokemonCardData[], sorting: string): PokemonCardData[] {
+  return useMemo(() => {
     if (sorting === "default") {
-      setSorted([...filtered].sort((a, b) => a.id - b.id));
-      return;
+      return [...filtered].sort((a, b) => a.id - b.id);
     }
     const statKey = SortFiltersOptions[sorting]?.apiStatName;
-    if (!statKey) return;
-    setSorted(
-      [...filtered].sort((a, b) => {
-        const aStat = a.stats.find((s) => s.name === statKey);
-        const bStat = b.stats.find((s) => s.name === statKey);
-        return bStat.base - aStat.base;
-      }),
-    );
-  }, [filtered[0]?.id, sorting]);
-
-  return sorted;
+    if (!statKey) return filtered;
+    return [...filtered].sort((a, b) => {
+      const aStat = a.stats.find((s) => s.name === statKey);
+      const bStat = b.stats.find((s) => s.name === statKey);
+      return (bStat?.base ?? 0) - (aStat?.base ?? 0);
+    });
+  }, [filtered, sorting]);
 }
