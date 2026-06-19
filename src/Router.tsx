@@ -13,7 +13,7 @@ const routes = {
     element: App2,
   },
   old: {
-    path: "/old",
+    path: "/original",
     element: App,
   },
 };
@@ -24,7 +24,10 @@ const Layout = () => {
   return (
     <>
       <aside className="floating-tab">
-        <button className="floating-tab__btn" onClick={() => navigate("/old")}>
+        <button
+          className="floating-tab__btn"
+          onClick={() => navigate("/original")}
+        >
           O
         </button>
         <button className="floating-tab__btn" onClick={() => navigate("/")}>
