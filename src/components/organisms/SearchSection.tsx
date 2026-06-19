@@ -3,9 +3,11 @@ import { usePokemonData } from "../../hooks/usePokemonData";
 import { usePokemonFilter } from "../../hooks/usePokemonFilter";
 import { usePokemonSort } from "../../hooks/usePokemonSort";
 import { PokemonCard } from "../molecules/PokemonCard";
-import { Loading } from "../atoms/Loading";
-import { DropDownRegion } from "../atoms/DropDownRegion";
-import { OrderControls } from "../atoms/OrderControls";
+import { SkeletonGrid } from "../molecules/SkeletonGrid";
+import { RegionToggle } from "../atoms/RegionToggle";
+import { RegionDropdown } from "../molecules/RegionDropdown";
+import { SortToggle } from "../atoms/SortToggle";
+import { SortPanel } from "../molecules/SortPanel";
 import errorImg from "../../assets/images/pokedex.png";
 
 export const Search = () => {
@@ -50,30 +52,30 @@ export const Search = () => {
           onChange={(e) => setBusqueda(e.target.value)}
         />
 
-        <DropDownRegion
-          region={region}
-          showregs={showregs}
-          showSort={showSort}
-          onRegionChange={(key) => {
-            setRegion(key);
-            setShowregs(false);
-          }}
-          onToggle={() => {
-            setShowregs((prev) => {
-              if (showSort) setShowSort(false);
-              return !prev;
-            });
-          }}
-        />
+        <div className="dropdown">
+          <RegionToggle
+            region={region}
+            showregs={showregs}
+            onToggle={() => {
+              setShowregs((prev) => {
+                if (showSort) setShowSort(false);
+                return !prev;
+              });
+            }}
+          />
+          {showregs && (
+            <RegionDropdown
+              region={region}
+              onRegionChange={(key) => {
+                setRegion(key);
+                setShowregs(false);
+              }}
+            />
+          )}
+        </div>
 
-        <OrderControls
+        <SortToggle
           showSort={showSort}
-          sorting={sorting}
-          showregs={showregs}
-          onSortChange={(value) => {
-            setSort(value);
-            setShowSort(false);
-          }}
           onToggle={() => {
             setShowSort((prev) => {
               if (showregs) setShowregs(false);
@@ -81,6 +83,15 @@ export const Search = () => {
             });
           }}
         />
+        {showSort && (
+          <SortPanel
+            sorting={sorting}
+            onSortChange={(value) => {
+              setSort(value);
+              setShowSort(false);
+            }}
+          />
+        )}
       </section>
       <section>
         {error && (
@@ -88,7 +99,7 @@ export const Search = () => {
             <img src={errorImg} alt="Error" width={500} />
           </p>
         )}
-        {loading && <Loading />}
+        {loading && <SkeletonGrid />}
         {!loading && sorted.length > 0 && (
           <ul className="grid">
             {sorted.map((res) => {
