@@ -1,7 +1,7 @@
 import React from "react";
-import { Header } from "../atoms/Header";
+import { Header } from "./Header";
 import { Search } from "../organisms/SearchSection";
-import { Footer } from "../atoms/Footer";
+import { Footer } from "./Footer";
 
 interface LayoutProps {
   title: string;

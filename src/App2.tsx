@@ -1,5 +1,5 @@
-import { Header } from "./components/atoms/Header";
-import { Footer } from "./components/atoms/Footer";
+import { Header } from "./components/layout/Header";
+import { Footer } from "./components/layout/Footer";
 import { Search } from "./components/organisms/SearchSection";
 
 export const App2 = () => {

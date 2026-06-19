@@ -1,4 +1,5 @@
 import { SortFiltersOptions } from "../../constants/Stats";
+import { SortOption } from "../atoms/SortOption";
 
 export const SortPanel = ({
   sorting,
@@ -12,20 +13,14 @@ export const SortPanel = ({
       <h3 className="sort__title">Sort by</h3>
       <div className="sort__items" role="listbox" id="sort-list">
         {Object.entries(SortFiltersOptions).map(([key, opt]) => (
-          <span
+          <SortOption
             key={key}
-            role="radio"
-            aria-label={opt.label}
-            tabIndex={0}
-            className={`sort__pill ${sorting === key ? "active" : ""}`}
-            aria-checked={sorting === key}
-            onClick={() => onSortChange(key)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") onSortChange(key);
-            }}
-          >
-            {opt.StatShortName}
-          </span>
+            value={key}
+            label={opt.label}
+            shortName={opt.StatShortName}
+            isActive={sorting === key}
+            onSelect={onSortChange}
+          />
         ))}
       </div>
     </article>
