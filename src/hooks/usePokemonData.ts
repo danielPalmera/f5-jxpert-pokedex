@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { getPokemons } from "../api/pokemonApi";
+import { useApi } from "../api/ApiContext";
+import { PokemonCardData } from "../types/PokemonCardData";
 
 export function usePokemonData(region: string) {
-  const [result, setResult] = useState<any[]>([]);
+  const [result, setResult] = useState<PokemonCardData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { getPokemons } = useApi();
 
   useEffect(() => {
     let cancelled = false;
@@ -26,7 +28,7 @@ export function usePokemonData(region: string) {
     return () => {
       cancelled = true;
     };
-  }, [region]);
+  }, [region, getPokemons]);
 
   return { result, loading, error };
 }
