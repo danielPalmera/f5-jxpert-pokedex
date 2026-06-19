@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { usePokemonData } from "../../hooks/usePokemonData";
 import { usePokemonFilter } from "../../hooks/usePokemonFilter";
 import { usePokemonSort } from "../../hooks/usePokemonSort";
+import { useFavorites } from "../../hooks/useFavorites";
 import { PokemonCard } from "../molecules/PokemonCard";
 import { SkeletonGrid } from "../molecules/SkeletonGrid";
 import { RegionToggle } from "../atoms/RegionToggle";
@@ -19,6 +20,7 @@ export const Search = () => {
   const [region, setRegion] = useState<string>("kanto");
   const [sorting, setSort] = useState<string>("default");
   const { result, loading, error } = usePokemonData(region);
+  const { isFavorite, toggleFavorite } = useFavorites();
   const filtered = usePokemonFilter(result, busqueda);
   const sorted = usePokemonSort(filtered, sorting);
 
@@ -111,7 +113,15 @@ export const Search = () => {
                 );
                 return { base: stat.base, shortName: info?.StatShortName || stat.name };
               });
-              return <PokemonCard key={`pokemon-card-${res.id}`} data={res} cardStats={cardStats} />;
+              return (
+                <PokemonCard
+                  key={`pokemon-card-${res.id}`}
+                  data={res}
+                  cardStats={cardStats}
+                  isFav={isFavorite(res.id)}
+                  onToggleFav={() => toggleFavorite(res.id, res.name)}
+                />
+              );
             })}
           </ul>
         )}
