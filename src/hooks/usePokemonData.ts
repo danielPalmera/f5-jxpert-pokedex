@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useApi } from "../api/ApiContext";
+import { useApi } from "../contexts/ApiContext";
 import { PokemonCardData } from "../types/PokemonCardData";
 
 export function usePokemonData(region: string) {

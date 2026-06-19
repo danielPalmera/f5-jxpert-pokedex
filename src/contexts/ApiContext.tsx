@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import { GetPokemonsFn } from "../ports/PokemonApi";
-import { getPokemons } from "./pokemonApi";
+import { getPokemons } from "../api/pokemonApi";
 
 interface ApiContextValue {
   getPokemons: GetPokemonsFn;

@@ -8,6 +8,14 @@ export interface ApiPokemonListResponse {
   results: ApiPokemonListItem[];
 }
 
+export interface ApiPokemonDetail {
+  id: number;
+  name: string;
+  stats: ApiStat[];
+  types: ApiType[];
+  sprites: ApiSprite;
+}
+
 interface ApiStat {
   base_stat: number;
   effort: number;
@@ -31,12 +39,4 @@ interface ApiSprite {
       front_default: string;
     };
   };
-}
-
-export interface ApiPokemonDetail {
-  id: number;
-  name: string;
-  stats: ApiStat[];
-  types: ApiType[];
-  sprites: ApiSprite;
 }
