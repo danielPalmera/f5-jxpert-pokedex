@@ -3,7 +3,6 @@ import {
   createBrowserRouter,
   Outlet,
   RouterProvider,
-  useNavigate,
 } from "react-router-dom";
 import { App } from "./pages/App";
 import { App2 } from "./pages/App2";
@@ -15,11 +14,11 @@ const routes = {
   home: {
     path: "/",
     element: App2,
-  },
+  } /*
   old: {
     path: "/original",
     element: App,
-  },
+  },*/,
   favs: {
     path: "/favorites",
     element: Favorites,
@@ -27,7 +26,6 @@ const routes = {
 };
 
 const Layout = () => {
-  const navigate = useNavigate();
   const [party, setParty] = useState(false);
   const linkRef = useRef<HTMLLinkElement | null>(null);
 
@@ -52,9 +50,6 @@ const Layout = () => {
   return (
     <>
       <FloatingTab
-        onNavOld={() => navigate("/original")}
-        onNavNew={() => navigate("/")}
-        onNavFav={() => navigate("/favorites")}
         onToggleParty={() => setParty((prev) => !prev)}
         party={party}
       />

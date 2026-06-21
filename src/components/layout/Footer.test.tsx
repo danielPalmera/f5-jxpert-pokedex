@@ -1,0 +1,16 @@
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import { Footer } from "./Footer";
+
+describe("Footer", () => {
+  it("renders copyright with current year", () => {
+    render(<Footer />);
+    const year = new Date().getFullYear().toString();
+    expect(screen.getByText(new RegExp(year))).toBeInTheDocument();
+  });
+
+  it("renders Pokémon copyright text", () => {
+    render(<Footer />);
+    expect(screen.getByText(/Pokémon/)).toBeInTheDocument();
+  });
+});

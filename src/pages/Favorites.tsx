@@ -34,7 +34,12 @@ export const Favorites = () => {
 
   return (
     <div className="layout">
-      <Header title="Pokédex" favoritesCount={favorites.length} onNavHome={() => navigate("/")} onNavFav={() => navigate("/favorites")} />
+      <Header
+        title="Pokédex"
+        favoritesCount={favorites.length}
+        onNavHome={() => navigate("/")}
+        onNavFav={() => navigate("/favorites")}
+      />
       <main className="container favorites-wrapper">
         <div className="favorites-outer">
           <div className="favorites-inner">
@@ -96,10 +101,11 @@ export const Favorites = () => {
             />
           </div>
         )}
-
+        {/*}
         <pre className="favorites-storage">
           {JSON.stringify(favorites, null, 2)}
         </pre>
+        {*/}
       </main>
       <Footer />
     </div>
